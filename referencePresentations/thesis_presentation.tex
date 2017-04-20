@@ -1,0 +1,2329 @@
+\documentclass[8pt]{beamer}
+\setbeamerfont{institute}{size=\small}
+
+\newif\ifplacelogo % create a new conditional
+\placelogotrue % set it to true
+
+\usetheme{Warsaw}
+\usecolortheme{rose}
+\usepackage{multicol}
+\usepackage{epstopdf}
+\usepackage{textcomp}
+\usepackage{adjustbox}
+\usepackage[italic]{hepnames}
+\usepackage{bbding} % for special charachters e.g. for itemize (ftp://ftp.dante.de/tex-archive/fonts/bbding/bbding.pdf)
+\usepackage{xcolor}
+\usepackage{pdfpages}
+\usepackage{mathpazo}
+\usepackage{mathrsfs}  
+\usepackage{gensymb}
+\usepackage{multirow}
+\usepackage{booktabs}
+
+% TikZ includes!!!
+\usepackage{tikz}
+\usepackage[compat=1.1.0]{tikz-feynman}
+\usetikzlibrary{backgrounds}
+\tikzstyle{every picture}+=[remember picture]
+\input{/home/oviazlo/PhD_study/myReports/latexHelpScripts/tikzGrid.tex}
+
+\newcommand{\myCenterBox}[2][pink] {
+   {\centering
+    \noindent\colorbox{#1}{
+	\textbf{#2}
+    }\par
+  }
+}
+
+\newcommand{\mySmallCenterBox}[2][pink] {
+   {\centering
+    \noindent\colorbox{#1}{
+	\textbf{{\small #2}}
+    }\par
+  }
+}
+
+\newcommand{\myVerySmallCenterBox}[2][pink] {
+   {\centering
+    \noindent\colorbox{#1}{
+	\textbf{{\scriptsize #2}}
+    }\par
+  }
+}
+
+\newcommand{\myBox}[2][pink] {
+    \noindent\colorbox{#1}{
+	\textbf{#2}
+    }\par
+}
+
+\newcommand{\mySmallBox}[2][pink] {
+    \noindent\colorbox{#1}{
+	\textbf{{\small #2}}
+    }\par
+}
+
+\newcommand{\myVerySmallBox}[2][pink] {
+    \noindent\colorbox{#1}{
+	\textbf{{\scriptsize #2}}
+    }\par
+}
+
+% do not use backup slides in page counter
+\newcommand{\backupbegin}{
+   \newcounter{finalframe}
+   \setcounter{finalframe}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \setcounter{framenumber}{\value{finalframe}}
+}
+
+% custom colors
+\definecolor{olive}{rgb}{0.3, 0.4, .1}
+\definecolor{fore}{RGB}{249,242,215}
+\definecolor{back}{RGB}{51,51,51}
+\definecolor{title}{RGB}{255,0,90}
+\definecolor{dgreen}{rgb}{0.,0.6,0.}
+\definecolor{gold}{rgb}{1.,0.84,0.}
+\definecolor{JungleGreen}{cmyk}{0.99,0,0.52,0}
+\definecolor{BlueGreen}{cmyk}{0.85,0,0.33,0}
+\definecolor{RawSienna}{cmyk}{0,0.72,1,0.45}
+\definecolor{Magenta}{cmyk}{0,1,0,0}
+
+\definecolor{PixelColor}{RGB}{207,232,139}
+\definecolor{SCTColor}{RGB}{167,166,255}
+\definecolor{TRTColor}{RGB}{250,224,140}
+
+\begin{document}
+
+\DeclareGraphicsExtensions{{.pdf},{.png},{.eps}}
+\graphicspath{{/home/oviazlo/PhD_study/THESIS/pictures/},{/home/oviazlo/PhD_study/THESIS/thesisPresentation/material/}}
+
+
+
+\title[Search for BSM physics with high-$p_T$ leptons \hspace{10em}\insertframenumber/
+\inserttotalframenumber]{Search for beyond Standard Model physics with high-$p_T$ leptons}
+
+
+% 	\author[Oleksandr Viazlo]{Oleksandr Viazlo\\{\small Supervised by: Your Supervisor's Name}}
+	\author{Oleksandr Viazlo}
+	\institute{Lund University}
+	\date{17.02.17\\}
+	\logo{ \ifplacelogo \includegraphics[height=1.8cm]{lund_uni-logo_s.pdf} \hspace{0.4cm} \fi}
+%   	\frame{\titlepage}
+
+% \placelogofalse
+
+\newcommand{\channel}{enuqqbb}
+\newcommand{\goodChannel}{$t\bar{t} \longrightarrow W^{+}bW^{-}\bar{b} \longrightarrow q\bar{q}be^{-}\bar{\nu_{e}}\bar{b} + e^{+}\nu_{e}bq\bar{q}\bar{b}$}
+\newcommand{\myNodeOne}{\tikz[baseline,inner sep=1pt] \node[anchor=base]}
+\newcommand{\myNodeTwo}{\tikz[baseline,inner sep=1pt] \node[anchor=base]}
+
+% For nice block (provided by Oleh)
+\tikzstyle{mybox} = [draw=red, fill=blue!1, very thick,
+    rectangle, rounded corners, inner sep=5pt, inner ysep=9pt]
+    
+\tikzstyle{PixelBox} = [draw=PixelColor, fill=blue!1, very thick,
+    rectangle, rounded corners, inner sep=5pt, inner ysep=9pt]
+\tikzstyle{SCTBox} = [draw=SCTColor, fill=blue!1, very thick,
+    rectangle, rounded corners, inner sep=5pt, inner ysep=9pt]
+\tikzstyle{TRTBox} = [draw=TRTColor, fill=blue!1, very thick,
+    rectangle, rounded corners, inner sep=5pt, inner ysep=9pt]
+    
+\tikzstyle{fancytitle} =[fill=white!15, text=black]
+
+\placelogofalse
+
+{
+\setbeamercolor{background canvas}{bg=}
+\includepdf{/home/oviazlo/PhD_study/THESIS/thesisPresentation/errata.pdf}
+}
+
+
+\placelogotrue
+\frame{\titlepage}
+\placelogofalse
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Introduction} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+
+\node [mybox, anchor=north west] at (-0.5,3) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Transition Radiation Tracker.
+%          \item Improve momentum resolution of tracks measured with the Inner Detector. Electron identification capabilities.
+         \item Implementation of the Argon gas mixture in TRT to the ATLAS simulation software.
+         \item Tracking performance study with Argon gas mixture.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {TRT};
+
+\node [mybox, anchor=north east] at (11.0,3) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item ATLAS luminosity monitor.
+         \item Provide luminosity measurements $\to$ one of the ingredients for the cross section limits.
+         \item Development, operation and performance studies.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {LUCID};
+ 
+\node [mybox, anchor=north west] at (-0.5,-1) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Model-independent search for new physics.
+         \item Search for Doubly Charged Higgs.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Same-sign dielectrons};
+ 
+\node [mybox, anchor=north east] at (11.0,-1) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Search for new charged gauge boson.
+         \item Final state: high-$p_T$ muon plus missing transverse energy.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Search for $\PWprime$};
+ 
+ 
+ 
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+
+
+
+% TODO ***TRT***
+% 
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{ATLAS Inner Detector (ID)} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+
+ \node[inner sep=0pt] (ID_pict) at (2.5,0.7)
+    {\includegraphics[width=6.5cm]{TRT/pictures/ID_section.png}};
+
+ \node[inner sep=0pt] (ID_pict2) at (2.5,-3.8)
+    {\includegraphics[width=5cm]{TRT/pictures/schematic_ID2.jpg}};
+    
+\node [PixelBox] at (8.5,-3.7) (box){%
+    \begin{minipage}{0.45\textwidth}
+%        \scriptsize 
+        \begin{itemize}
+         \item 80 million pixels
+         \item 3+1 barrel layers + 2$\times$3 disks
+         \item Resolution 14 $\times$ 115$\mu m^2$
+        \end{itemize}
+
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Pixel Detector};
+
+\node [SCTBox] at (8.5,-1.4) (box){%
+    \begin{minipage}{0.45\textwidth}
+%        \scriptsize 
+        \begin{itemize}
+         \item Silicon strip detector
+         \item 4 barrel layers + 2$\times$9 disks
+         \item Resolution 17 $\times$ 580$\mu m^2$
+        \end{itemize}
+
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Semiconductor Tracker};
+
+\node [TRTBox] at (8.5,1.3) (box){%
+    \begin{minipage}{0.45\textwidth}
+%        \scriptsize 
+        \begin{itemize}
+         \item 4 mm drift tubes $\to$ 30 two-dimensional space points
+         \item use drift time information $\to$ $\sim$130 $\mu m$ resolution
+         \item provides electron identification by detection of transition radiation X-ray photons
+        \end{itemize}
+
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Transition Radiation Tracker};
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+
+
+
+
+\end{frame}
+%------------------------------------------------
+
+
+% the TRT provides electron identification through the detection of transition radiation X-ray photons, which are created by the charged particles passing through layers of radiator material between the tubes
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{TRT operational condition} 
+
+\begin{tikzpicture}[overlay]
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+
+\node [mybox] at (2.5,1) (box){%
+    \begin{minipage}{6cm}
+%        \scriptsize 
+        \begin{itemize}
+         \item TRT operates with Xenon-based gas mixture: Xenon, CO$_2$, O$_2$ in proportion 70/27/3 $\%$.
+         \item At the end of Run-1 leaks in a subset of drift tubes were detected. To decrease operational cost, leaking tubes were switched to Argon-based gas mixture.
+         \item The problem is gradually increasing with time.
+        \end{itemize}
+
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {TRT operational condition};
+
+
+ \node[inner sep=0pt] (trt_cond_2013) at (8.6,2.2)
+    {\includegraphics[width=5.2cm]{TRT/pictures/Xe_Ar_map_2013_cutted.png}};
+
+ \node[inner sep=0pt] (trt_cond_2015) at (8.6,-0.5)
+    {\includegraphics[width=5.2cm]{TRT/pictures/Xe_Ar_map_2015_cutted.png}};
+    
+ \node[inner sep=0pt] (trt_cond_2016) at (8.6,-3.2)
+    {\includegraphics[width=5.2cm]{TRT/pictures/Xe_Ar_map_2016_cutted.png}};
+
+ \node[inner sep=0pt, anchor=west] at (5.8,3.2) (box)
+    {
+    \begin{minipage}{5.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small 2013}}
+    }\par
+    \end{minipage}
+  };
+    
+ \node[inner sep=0pt, anchor=west] at (5.8,0.5) (box)
+    {
+    \begin{minipage}{5.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small 2015}}
+    }\par
+    \end{minipage}
+  };
+  
+ \node[inner sep=0pt, anchor=west] at (5.8,-2.2) (box)
+    {
+    \begin{minipage}{5.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small 2016}}
+    }\par
+    \end{minipage}
+  };
+    
+\node [mybox] at (2.5,-3) (box){%
+    \begin{minipage}{6cm}
+%        \scriptsize 
+        \begin{itemize}
+         \item TRT was designed to operate with Xenon mixture.
+         \item A big question was to understand tracking performance of the detector with Argon mixture.
+         \item Implementation of the Argon mixture to the detector simulation software was needed.
+        \end{itemize}
+
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {TRT with Argon};
+    
+    
+%  \node[inner sep=0pt] (clusters_drift) at (1,-3.5)
+%     {\includegraphics[height=3cm]{TRT/pictures/driftTube.pdf}};
+%     
+%  \node[inner sep=0pt] (drift_radius) at (6,-3.5)
+%     {\includegraphics[height=3cm]{TRT/pictures/drift_radius.png}};   
+    
+\end{tikzpicture}
+
+\end{frame}
+%------------------------------------------------
+
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Drift tube performance. Track fitting.} 
+
+\begin{tikzpicture}[overlay]
+% 
+% \node [mybox] at (2.5,1) (box){%
+%     \begin{minipage}{6cm}
+% %        \scriptsize 
+%         \begin{itemize}
+%          \item Item 1
+%          \item Item 2
+%          \item Item 3
+%         \end{itemize}
+% 
+%     \end{minipage}
+% };
+% \node[fancytitle, right=15pt] at (box.north west) {Box title};
+
+
+\node [mybox] at (2.5,-0.7) (box1){%
+    \begin{minipage}{6cm}
+        \hspace{1.4cm}
+	\includegraphics[width=3cm]{TRT/pictures/driftTube.pdf}
+
+% 	Performance of the drift tube is characterized by:
+        \begin{itemize}
+         \item Parameter of interest: shortest distance between tube wire and track
+         \item First arrivals determines drift time
+         \item Number of primary electron clusters which are created by charged particle passing through the tube
+         \item Drift velocity and drift diffusion
+         \item Reading-out, shaping and discrimination of the signal against Low Threshold.
+        \end{itemize}
+        
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box1.north west) {Simulation of the drift tube operation};
+
+\draw[line width=0.25mm,red] (2.5,1.11) to (3.2,1.9);
+ 
+\node [mybox] at (8.8,0) (box2){%
+    \begin{minipage}{5cm}
+	\includegraphics[width=\textwidth]{TRT/pictures/drift_radius.png}
+
+        \begin{itemize}
+         \item Electron drift time is converted to drift radius
+         \item Drift radius is used during the track fitting
+         \item Difference between drift time and track to wire distance is called position residual and characterize TRT hit resolution.
+        \end{itemize}
+        
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box2.north west) {Track fitting};
+
+
+
+
+%  \node[inner sep=0pt] (clusters_drift) at (1,-3.5)
+%     {\includegraphics[height=3cm]{}};
+%     
+%  \node[inner sep=0pt] (drift_radius) at (6,-3.5)
+%     {\includegraphics[height=3cm]{TRT/pictures/drift_radius.png}}; 
+%     
+  
+
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+    
+\end{tikzpicture}
+
+% \begin{itemize}
+%   \item Gas gain has to be the same for all tubes $\to$ different HV for Argon tubes
+%   \item Number of primary ionization clusters in the two gases is different
+%   \item ???
+%   \item Item 3
+% \end{itemize}
+
+\end{frame}
+%------------------------------------------------
+
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Simulation of Argon-based gas mixture in straws} 
+
+\begin{tikzpicture}[overlay]
+
+
+ \node[inner sep=0pt] (meanFreePath) at (2.5,1.7)
+    {\includegraphics[width=5.5cm]{TRT/pictures/meanFreePath.eps}};   
+
+
+ \node[inner sep=0pt] (rt_comp_max_field) at (2.5,-2.6)
+    {\includegraphics[width=4.5cm]{TRT/pictures/rt_comp_max_field.png}};
+    
+%  \node[inner sep=0pt] (drift_radius) at (4,-1.5)
+%     {\includegraphics[width=3cm]{TRT/pictures/diffusion_v2.eps}}; 
+%     
+%  \node[inner sep=0pt] (drift_radius) at (0.8,-1.5)
+%     {\includegraphics[width=3cm]{TRT/pictures/shaping.eps}}; 
+     
+\node [mybox] at (8.5,0.05) (box){%
+\begin{minipage}{5cm}
+%        \scriptsize 
+    \begin{itemize}
+      \item Mean free path of charged particle is $\approx 50\%$ larger in Argon mixture $\to$ smaller number of primary electron clusters.
+      \item Drift velocity of electron is larger in Argon mixture. Different RT table to be used for drift radius determination.
+      \item Drift diffusion. 
+      \item Different shaping functions for Xenon and Argon are used in front-end electronics. 
+%       \item White noise model is applied separately for Argon and Xenon straws.
+    \end{itemize}
+\end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Gas mixture simulation};
+    
+\draw[line width=0.2mm,dashed,blue,->] (6.33,2) to [out=-120, in=0] ([shift={(0,0)}]meanFreePath.east);
+\draw[line width=0.2mm,dashed,blue,->] (6.33,0.58) to [out=-180, in=0] ([shift={(-0.1,0)}]rt_comp_max_field.east);
+    
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+    
+\end{tikzpicture}
+
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Simulation of Argon-based gas mixture in straws} 
+
+\begin{tikzpicture}[overlay]
+
+
+%  \node[inner sep=0pt] (drift_radius) at (0.8,1.5)
+%     {\includegraphics[width=3cm]{TRT/pictures/meanFreePath.eps}};   
+% 
+% 
+%  \node[inner sep=0pt] (clusters_drift) at (4,1.5)
+%     {\includegraphics[width=3cm]{TRT/pictures/rt_comp_max_field.png}};
+    
+ \node[inner sep=0pt] (diffusion_v2) at (2.5,1.7)
+    {\includegraphics[width=5.5cm]{TRT/pictures/diffusion_v2.eps}}; 
+    
+ \node[inner sep=0pt] (shaping) at (2.5,-2.6)
+    {\includegraphics[width=5.5cm]{TRT/pictures/shaping.eps}}; 
+    
+\node [mybox] at (8.5,0.05) (box){%
+\begin{minipage}{5cm}
+%        \scriptsize 
+    \begin{itemize}
+      \item Mean free path of charged particle is $\approx 50\%$ larger in Argon mixture $\to$ smaller number of primary electron clusters.
+      \item Drift velocity of electron is larger in Argon mixture. Different RT table to be used for drift radius determination.
+      \item Drift diffusion. 
+      \item Different shaping functions for Xenon and Argon are used in front-end electronics. 
+%       \item White noise model is applied separately for Argon and Xenon straws.
+    \end{itemize}
+\end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Gas mixture simulation};
+    
+\draw[line width=0.2mm,dashed,blue,->] (6.33,-0.85) to [out=-180, in=0] ([shift={(-0.53,0)}]diffusion_v2.east);
+\draw[line width=0.2mm,dashed,blue,->] (6.33,-1.3) to [out=-180, in=0] ([shift={(-0.52,0)}]shaping.east);
+    
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+    
+\end{tikzpicture}
+
+\end{frame}
+%------------------------------------------------
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{TRT tracking performance} 
+
+
+
+
+\begin{tikzpicture}[overlay]
+
+\newcommand\xFirstColumn{1}
+\newcommand\xSecondColumn{4}
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+
+ \node[inner sep=0pt] (pic1) at (2.5,1.7)
+    {\includegraphics[width=6cm]{TRT/pictures/resFitXenonEndcap.pdf}};
+
+ \node[inner sep=0pt] (pic2) at (2.5,-2.6)
+    {\includegraphics[width=6cm]{TRT/pictures/resFitArgon_Endcap.pdf}};
+
+%  \node[inner sep=0pt] (pic3) at (2.5,1.7)
+%     {\includegraphics[width=3.5cm]{TRT/pictures/hit_eff_rtrack_bar_xenon_region_v2.eps}};
+%     
+%  \node[inner sep=0pt] (pic4) at (2.5,-2.6)
+%     {\includegraphics[width=3.5cm]{TRT/pictures/hit_eff_rtrack_bar_argon_region_v2.eps}};
+%  
+% 
+%  \node[inner sep=0pt] (pic5) at (2.5,1.7)
+%     {\includegraphics[width=3.5cm]{TRT/pictures/xenon_nHitsPerTrack_vs_phi.eps}};  
+%     
+%  \node[inner sep=0pt] (pic6) at (2.5,-2.6)
+%     {\includegraphics[width=3.5cm]{TRT/pictures/argon_nHitsPerTrack_vs_phi.eps}};  
+    
+      
+
+    
+    
+\node [mybox] at (8.5,1.5) (box){%
+    \begin{minipage}{5cm}
+%        \scriptsize 
+        \begin{itemize}
+         \item Position residuals. Slightly worse for Argon. 
+         \item Reconstruction hit efficiency. Slightly higher for Argon. Depends from Low Threshold settings.
+         \item Number of hits per tracks. Larger for Argon due to larger hit efficiency.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {TRT tracking performance};
+
+    
+\node [mybox] at (8.5,-2.5) (box){%
+    \begin{minipage}{5cm}
+%        \scriptsize 
+        \begin{itemize}
+         \item Implementation of the Argon gas mixture in the simulation software is done.
+         \item Argon gas mixture provides comparable tracking performance, however no detection of transition radiation photons.
+%          \item Fine tuning of Low Threshold for Argon is needed.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Summary};
+    
+\draw[line width=0.2mm,dashed,blue,->] (6.33,2.78) to [out=-180, in=0] ([shift={(-0.53,0)}]pic1.east);
+\draw[line width=0.2mm,dashed,blue,->] (6.33,2.78) to [out=-150, in=0] ([shift={(-0.52,0)}]pic2.east);
+    
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+    
+\end{tikzpicture}
+
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{TRT tracking performance} 
+
+
+
+
+\begin{tikzpicture}[overlay]
+
+\newcommand\xFirstColumn{1}
+\newcommand\xSecondColumn{4}
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+
+%  \node[inner sep=0pt] (pic1) at (2.5,1.7)
+%     {\includegraphics[width=5cm]{TRT/pictures/resFitXenonEndcap.pdf}};
+% 
+%  \node[inner sep=0pt] (pic2) at (2.5,-2.6)
+%     {\includegraphics[width=5cm]{TRT/pictures/resFitArgon_Endcap.pdf}};
+
+ \node[inner sep=0pt] (pic3) at (2.5,1.65)
+    {\includegraphics[width=5.8cm]{TRT/pictures/hit_eff_rtrack_bar_xenon_region_v2.eps}};
+    
+ \node[inner sep=0pt] (pic4) at (2.5,-2.6)
+    {\includegraphics[width=5.8cm]{TRT/pictures/hit_eff_rtrack_bar_argon_region_v2.eps}};
+%  
+% 
+%  \node[inner sep=0pt] (pic5) at (2.5,1.7)
+%     {\includegraphics[width=3.5cm]{TRT/pictures/xenon_nHitsPerTrack_vs_phi.eps}};  
+%     
+%  \node[inner sep=0pt] (pic6) at (2.5,-2.6)
+%     {\includegraphics[width=3.5cm]{TRT/pictures/argon_nHitsPerTrack_vs_phi.eps}};  
+    
+      
+
+    
+    
+\node [mybox] at (8.5,1.5) (box){%
+    \begin{minipage}{5cm}
+%        \scriptsize 
+        \begin{itemize}
+         \item Position residuals. Slightly worse for Argon. 
+         \item Reconstruction hit efficiency. Slightly higher for Argon. Depends from Low Threshold settings.
+         \item Number of hits per tracks. Larger for Argon due to larger hit efficiency.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {TRT tracking performance};
+
+    
+\node [mybox] at (8.5,-2.5) (box){%
+    \begin{minipage}{5cm}
+%        \scriptsize 
+        \begin{itemize}
+         \item Implementation of the Argon gas mixture in the simulation software is done.
+         \item Argon gas mixture provides comparable tracking performance, however no detection of transition radiation photons.
+%          \item Fine tuning of Low Threshold for Argon is needed.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Summary};
+    
+\draw[line width=0.2mm,dashed,blue,->] (6.33,2) to [out=-180, in=0] ([shift={(-0.53,0)}]pic3.east);
+\draw[line width=0.2mm,dashed,blue,->] (6.33,2) to [out=-150, in=0] ([shift={(-0.52,0)}]pic4.east);
+    
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+    
+\end{tikzpicture}
+
+\end{frame}
+%------------------------------------------------
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{TRT tracking performance} 
+
+
+
+
+\begin{tikzpicture}[overlay]
+
+\newcommand\xFirstColumn{1}
+\newcommand\xSecondColumn{4}
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+% 
+%  \node[inner sep=0pt] (pic1) at (2.5,1.7)
+%     {\includegraphics[width=5cm]{TRT/pictures/resFitXenonEndcap.pdf}};
+% 
+%  \node[inner sep=0pt] (pic2) at (2.5,-2.6)
+%     {\includegraphics[width=5cm]{TRT/pictures/resFitArgon_Endcap.pdf}};
+
+%  \node[inner sep=0pt] (pic3) at (2.5,1.7)
+%     {\includegraphics[width=3.5cm]{TRT/pictures/hit_eff_rtrack_bar_xenon_region_v2.eps}};
+%     
+%  \node[inner sep=0pt] (pic4) at (2.5,-2.6)
+%     {\includegraphics[width=3.5cm]{TRT/pictures/hit_eff_rtrack_bar_argon_region_v2.eps}};
+%  
+% 
+
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+
+
+
+
+ \node[inner sep=0pt] (pic5) at (0.75,0)
+    {\includegraphics[width=3.5cm]{TRT/pictures/xenon_nHitsPerTrack_vs_phi.eps}};  
+    
+ \node[inner sep=0pt] (pic6) at (4.05,0)
+    {\includegraphics[width=3.5cm]{TRT/pictures/argon_nHitsPerTrack_vs_phi.eps}};  
+    
+      
+ \node[inner sep=0pt, anchor=west] at (-0.5,2) (box)
+    {
+    \begin{minipage}{5.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Number of hits vs. $\phi$}}
+    }\par
+    \end{minipage}
+  };
+
+ \node[inner sep=0pt, anchor=west] at (0.2,1.6) (box)
+    {
+    \begin{minipage}{1cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Xenon}}
+    }\par
+    \end{minipage}
+  };
+  
+   \node[inner sep=0pt, anchor=west] at (3.2,1.6) (box)
+    {
+    \begin{minipage}{1cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Argon}}
+    }\par
+    \end{minipage}
+  };
+  
+  
+    
+    
+\node [mybox] at (8.5,1.5) (box){%
+    \begin{minipage}{5cm}
+%        \scriptsize 
+        \begin{itemize}
+         \item Position residuals. Slightly worse for Argon. 
+         \item Reconstruction hit efficiency. Slightly higher for Argon. Depends from Low Threshold settings.
+         \item Number of hits per tracks. Larger for Argon due to larger hit efficiency.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {TRT tracking performance};
+
+    
+\node [mybox] at (8.5,-2.5) (box){%
+    \begin{minipage}{5cm}
+%        \scriptsize 
+        \begin{itemize}
+         \item Implementation of the Argon gas mixture in the simulation software is done.
+         \item Argon gas mixture provides comparable tracking performance, however no detection of transition radiation photons.
+%          \item Fine tuning of Low Threshold for Argon is needed.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Summary};
+
+\draw[line width=0.2mm,dashed,blue,->] (6.38,0.9) to [out=-270, in=45] (4.8,1.3);
+\draw[line width=0.2mm,dashed,blue,->] (6.38,0.9) to [out=-90, in=-45] (1.4,-1.4);
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+
+\end{tikzpicture}
+
+\end{frame}
+%------------------------------------------------
+
+
+% 
+% 
+% %% TODO ***LUCID***
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{LUCID introduction} 
+
+\begin{tikzpicture}[overlay]
+
+
+ \node[inner sep=0pt] (clusters_drift) at (2.1,1.5)
+    {\includegraphics[width=6cm]{LUCID/pictures/LUCIDdesign.png}};
+        
+ \node[inner sep=0pt] (clusters_drift) at (2.6,-2.8)
+    {\includegraphics[width=5cm]{LUCID/pictures/FourPMTs_zoomed.png}};       
+        
+        
+\node [mybox] at (8.3,1) (box){%
+\begin{minipage}{5.4cm}
+%        \scriptsize 
+    \begin{itemize}
+      \item Quartz Cherenkov luminosity monitor designed for LHC Run-2 period. 
+      \item Surrounds the beampipe on both sides of the interaction point (IP) at a distance of 17 m ($\eta$ = 5.7).
+      \item Detector consists of 12+12 photomultipliers (PMTs) with 10 mm diameter quartz window and 4+4 with 7 mm diameter quarts windows. In addition there are 4+4 quartz fiber bundles read out by 4+4 photomultipliers in a shielded location.
+%       \item 
+%       \item Consists from 5 different sets of detectors: BI, VDM, FIB, MOD and SPARE.
+      \end{itemize}
+\end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {LUCID detector};
+
+\node [mybox] at (8.3,-3.3) (box){%
+\begin{minipage}{5.4cm}
+    \begin{itemize}
+      \item PMT quartz window (or quartz fibers) plays role of Cherenkov medium
+      \item Analog signals from PMTs are digitized in 3.125 ns wide bits by FADC. FE electronics perform hit and charge counting.
+      
+    \end{itemize}
+\end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Particle detection};
+    
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+    
+\end{tikzpicture}
+
+\end{frame}
+%------------------------------------------------
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{LUCID luminosity algorithms} 
+
+\begin{tikzpicture}[overlay]
+
+
+\node [mybox] at (5.3,1.9) (box){%
+\begin{minipage}{11.5cm}
+
+\begin{columns}
+ \begin{column}{4.5cm}
+ \large
+ \hspace{0.3cm}
+  $\mathscr{L} = \dfrac{\mu}{\sigma_{inel}} f_{LHC} = \dfrac{\mu_{vis}}{\sigma_{vis}} f_{LHC} $
+ \end{column}
+\begin{column}{7cm}
+  \begin{itemize}
+   \item $f_{LHC} = $11245.5 Hz (LHC revolution frequency)
+   \item $\mu_{vis} = \varepsilon \mu$ - measured by LUCID
+   \item $\sigma_{vis} = \varepsilon \sigma_{inel}$ - measured in van der Meer scans
+   \item $\varepsilon$: detector efficiency and acceptance
+  \end{itemize}
+
+ \end{column}
+\end{columns}
+
+\end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Luminosity};
+
+\draw[thick,red] (2.7,2.14) ellipse (0.35cm and 0.18cm);
+\draw[thick,blue] (2.7,1.68) ellipse (0.35cm and 0.18cm);
+
+\draw[thick,red,dashed,->] (3,2.28) to [out=0, in=180] (4.7,2);
+\draw[thick,blue,dashed,->] (3,1.6) to [out=0, in=180] (4.7,1.55);
+
+\node [mybox] at (5.3,-1) (box){%
+\begin{minipage}{11.5cm}
+
+\begin{columns}
+ \begin{column}{11.5cm}
+  \hspace{11.5cm}
+ \end{column}
+\end{columns}
+\vspace{2cm}
+
+\end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {LUCID luminosity algorithms};
+
+  \node[inner sep=0pt, anchor=west] (clusters_drift) at (0.0,-0.19)
+    {$\mu^{OR}_{vis} = -ln\Big( 1 - \dfrac{N_{OR}}{N_{BC}}\Big)$};
+    
+  \node[inner sep=0pt, anchor=west] (clusters_drift) at (0.0,-0.99)
+    {$\mu^{HitOR}_{vis} = -ln\Big( 1 - \dfrac{N_{HitOR}}{N_{BC}N_{CH}}\Big)$};
+    
+  \node[inner sep=0pt, anchor=west] (clusters_drift) at (0.0,-1.79)
+    {$\mu^{Charge}_{vis} = C$};
+
+  \node[inner sep=0pt, anchor=west] (clusters_drift) at (5.0,-0.19)
+    {\begin{minipage}{5cm} Event-counting. Counting number of LUCID events with one or more signals.\end{minipage}};
+    
+  \node[inner sep=0pt, anchor=west] (clusters_drift) at (5.0,-0.99)
+    {\begin{minipage}{5cm}Hit-counting. Counting number of hits from number of PMTs.\end{minipage}};
+    
+  \node[inner sep=0pt, anchor=west] (clusters_drift) at (5.0,-1.79)
+    {\begin{minipage}{5cm}Charge-counting. The sum of the integral of all pulses.\end{minipage}};
+
+
+\node [mybox] at (5.3,-3.8) (box){%
+\begin{minipage}{11.5cm}
+    \begin{itemize}
+      \item Event- and Hit-counting algorithm suffer from ``pile-up'' effect.\\
+      Signals from different pp-interactions which are below discriminating threshold can add up and give hits.
+      \item Charge-counting has no pile-up problem, however is sensitive to the PMT gain variations.
+    \end{itemize}
+\end{minipage}
+};
+% \node[fancytitle, right=15pt] at (box.north west) {};
+    
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+    
+\end{tikzpicture}
+
+\end{frame}
+%------------------------------------------------
+
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{LUCID PMT gain monitoring system} 
+
+\begin{tikzpicture}[overlay]
+
+  \node[inner sep=0pt] (clusters_drift) at (1.6,1.6)
+    {\includegraphics[width=4.6cm]{LUCID/pictures/Bi_amplitude_distribtion.png}};  
+
+ \node[inner sep=0pt,anchor=east] (clusters_drift) at (10,2.2)
+    {\includegraphics[width=6cm]{LUCID/pictures/calibrationSystem.png}};
+        
+ 
+        
+  \node[inner sep=0pt] (clusters_drift) at (2.3,-2.6)
+    {\includegraphics[width=6cm]{LUCID/pictures/hv_2016_sideC_trendingPlot.png}};           
+        
+% \node [mybox] at (8.5,2.6) (box){%
+% \begin{minipage}{5cm}
+% %        \scriptsize 
+%     \begin{itemize}
+%       \item Due to large luminosity delivered by LHC gain of PMT can decrease for few percents per run.
+%     \end{itemize}
+% \end{minipage}
+% };
+% \node[fancytitle, right=15pt] at (box.north west) {};
+        
+\node [mybox] at (8.7,-1.7) (box){%
+\begin{minipage}{5cm}
+%        \scriptsize 
+    \begin{itemize}
+      \item 3 sources of the reference signal: LED, Tile Laser and Bi-207 source.
+      \item Special LED and Laser diffuser were developed to evenly distribute light between PMTs. Set of measurements was done in the laboratory to estimate optimal parameters of LED and laser diffusers.
+      \item The pulses from the LED/Laser (Bi-207 source) are integrated and the mean (truncated mean) charge are used to estimate the photomultiplier gain.
+      \item High Voltage is automatically adjusted after each calibration run to keep gain constant.
+    \end{itemize}
+\end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Gain monitoring system};
+    
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+    
+\end{tikzpicture}
+
+\end{frame}
+%------------------------------------------------
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{PMT gain temperature dependence} 
+
+\begin{tikzpicture}[overlay]
+
+
+ \node[inner sep=0pt] (clusters_drift) at (2.5,1.5)
+    {\includegraphics[width=6cm]{LUCID/pictures/goodSlowTemp_Feb20_Feb22_charge.eps}};
+        
+ \node[inner sep=0pt] (clusters_drift) at (2.5,-2.8)
+    {\includegraphics[width=6cm]{LUCID/pictures/pmt1_sideA_temperature_2015_2016.png}};       
+        
+        
+\node [mybox] at (8.5,-0.5) (box){%
+\begin{minipage}{5cm}
+%        \scriptsize 
+    \begin{itemize}
+      \item Charge-counting measurements are sensitive to the PMT gain:\\
+      $\mathscr{L} = \dfrac{C}{\sigma_{inel}} f_{LHC}$
+      \vspace{0.2cm}
+      \item Measured temperature dependence of the PMT gain: 0.25 $\%$ per 1\degree~C.
+      \item Temperature of the PMTs are stable during operation and is within 1\degree~C.
+    \end{itemize}
+\end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {LUCID detector};
+    
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+    
+\end{tikzpicture}
+
+\end{frame}
+%------------------------------------------------
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{LUCID performance in 2015} 
+
+\begin{tikzpicture}[overlay]
+
+
+ 
+\node [mybox] at (3,2) (box){%
+\begin{minipage}{2cm}
+$\mathscr{L} = \dfrac{\mu_{vis}}{\sigma_{vis}} f_{LHC} $
+\end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Luminosity};
+
+
+
+\node[inner sep=0pt] (syst_table) at (2.5,0){
+\begin{minipage}{5cm}
+\small
+\begin{table}[bp]
+  \begin{tabular}{l|c}
+    Source & Uncertainty \\
+    \hline
+    Background		&	$<$ 0.1$\%$ \\
+    \hline
+    Calibration transfer correction	&	1.2$\%$ \\
+    \hline
+    Error on $\sigma_{vis}$	&	1.9$\%$ \\
+    \hline
+    Run-to-run stability	&	1.2$\%$ \\
+    \hline
+    \hline
+    Total 	&	2.6$\%$ \\
+  \end{tabular}
+\end{table}
+\end{minipage}
+};
+
+%  \node[inner sep=0pt] (clusters_drift) at (2.5,1.5)
+%     {\includegraphics[width=6cm]{LUCID/pictures/goodSlowTemp_Feb20_Feb22_charge.eps}};
+        
+ \node[inner sep=0pt] (clusters_drift) at (5.4,-3)
+    {\includegraphics[width=10cm]{LUCID/pictures/run_to_run_stability_Vincent.png}};       
+        
+        
+        
+        
+        
+\node [mybox] at (8.5,1) (box){%
+\begin{minipage}{5cm}
+%        \scriptsize 
+    \begin{itemize}
+      \item During 2015-2016 LUCID was the main ATLAS luminosity monitor.
+      \item Estimation of the systematic uncertainties is done by comparison with other monitors.
+      \item Dominant contribution to the uncertainty arises from analysis of vdM scans.
+    \end{itemize}
+\end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {LUCID detector};
+    
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+    
+\end{tikzpicture}
+
+\end{frame}
+%------------------------------------------------
+
+
+
+% TODO ***Same-Sign***
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Search for new physics with same-sign electron pairs} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+
+ \node[inner sep=0pt, anchor=west] at (5.5,0.7) (box)
+    {
+    \begin{minipage}{5.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Doubly Charged Higgs (DCH)}}
+    }\par
+    \includegraphics[width=5.5cm]{SS/pictures/DCH_feynman_hawkins.png}
+    \end{minipage}
+    };
+
+ \node[inner sep=0pt, anchor=west] (ID_pict) at (5.5,-2.7)
+    {
+    \begin{minipage}{5.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Heavy Majorana Neutrino}}
+    }\par
+    \includegraphics[width=5.5cm]{SS/pictures/MajoranaNeutrino_feynman_Nuti.png}
+    \end{minipage}
+    };
+    
+
+\node [mybox, anchor=west] at (-0.5,1.7) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Model-independent search for new physics.
+         \item Final state of interest: \\same-sign electron pairs.
+         \item Signal discriminant: \\electron pair invariant mass.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Analysis strategy};
+    
+\node [mybox, anchor=west] at (-0.5,-2.3) (box){%
+    \begin{minipage}{0.45\textwidth}
+        - Predicted in many Beyond Standard Model (BSM) theories:
+        \begin{itemize}
+         \item Left-Right symmetric models
+         \item Supersymmetry
+         \item Zee-Babu model
+         \item Little Higgs model
+         \item Higgs Triplet models
+        \end{itemize}
+        - Relatively rare in Standard Model.
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Motivation of used final state};
+
+\draw[red,thick,dashed] (10.79,0.95) circle (0.19cm);
+\draw[red,thick,dashed] (10.79,1.5) circle (0.19cm);
+
+\draw[blue,thick,dashed] (10.79,-0.05) circle (0.19cm);
+\draw[blue,thick,dashed] (10.79,-0.56) circle (0.19cm);
+
+\draw[red,thick,dashed] (9.15,-2.12) circle (0.19cm);
+\draw[red,thick,dashed] (10,-2.6) circle (0.19cm);
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Backgrounds} 
+
+\begin{tikzpicture}[overlay]
+\node [mybox,anchor=west] at (0,1) (box2){%
+    \begin{minipage}{4cm}
+	\includegraphics[width=4cm]{SS/pictures/WZ_electron_v2.pdf}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box2.north west) {Prompt same-sign};
+
+\node [mybox,anchor=west] at (3,-2.5) (box2){%
+    \begin{minipage}{4cm}
+	\includegraphics[width=4cm]{SS/pictures/drell_yan.png}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box2.north west) {Charge misidentification};
+
+
+\node [mybox,anchor=west] at (6,1) (box2){%
+    \begin{minipage}{4cm}
+	\includegraphics[width=4cm]{SS/pictures/Wjets.pdf}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box2.north west) {Non-prompt};
+
+
+\draw[red,thick,dashed] (3.5,2) circle (0.19cm);
+\draw[red,thick,dashed] (3.65,0.7) circle (0.19cm);
+\draw[blue,thick,dashed] (3.65,1.15) circle (0.19cm);
+
+\draw[red,thick,dashed] (9.65,0.7) circle (0.19cm);
+
+\draw[blue,thick,dashed] (6.6,-2.1) circle (0.19cm);
+\draw[red,thick,dashed] (6.6,-2.9) circle (0.19cm);
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Prompt same-sign background} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+
+ \node[inner sep=0pt, anchor=west] (ID_pict) at (5.5,2)
+    {
+    \begin{minipage}{5.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small $W^{\pm}Z$ process}}
+    }\par
+    \includegraphics[width=4.5cm]{SS/pictures/WZ_electron_v2.pdf}
+    \end{minipage}
+    };
+
+ \node[inner sep=0pt, anchor=west] (ID_pict) at (5.5,-2.5)
+    {
+    \begin{minipage}{5.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Prompt-enriched control region}}
+    }\par
+    \includegraphics[width=5.5cm]{SS/pictures/2isoSS_ee_mll_pr.eps}
+    \end{minipage}
+    };
+
+\node [mybox, anchor=west] at (-0.5,2.5) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item $W^{\pm}Z, ZZ, W^{\pm}W^{\pm}, t\bar{t}W^{\pm}, t\bar{t}Z$, multiple parton interaction.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Contributing processes:};
+
+\node [mybox, anchor=west] at (-0.5,-0.2) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item modelled by MC simulation.
+         \item main contribution originates from diboson processes.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Estimation:};
+
+
+\node [mybox, anchor=west] at (-0.5,-3) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Reject events with opposite-sign same-flavour lepton pairs with invariant mass: \\ $|m_{\Plepton\Plepton} - m_{Z}| < 10$ GeV
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Background suppression:};
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Charge misidentification background} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+
+ \node[inner sep=0pt, anchor=west] (ID_pict) at (5.5,2)
+    {
+    \begin{minipage}{5.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Trident event}}
+    }\par
+    \includegraphics[width=5.5cm]{SS/pictures/trident_hawkins.png}
+    \end{minipage}
+    };
+
+ \node[inner sep=0pt, anchor=west] (ID_pict) at (5.0,-2.5)
+    {
+    \begin{minipage}{6.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Electron charge flip rate}}
+    }\par
+    \includegraphics[width=6.5cm]{SS/pictures/misidrate_datamc.eps}
+    \end{minipage}
+    };
+
+\node [mybox, anchor=west] at (-0.5,2) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Drell-Yan, $t\bar{t}, Wt, W^{\pm}W^{\mp}$ \\
+	       in case of trident events or charge misidentification.
+         \item $W\gamma$ in case of conversion.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Contributing processes:};
+
+\node [mybox, anchor=west] at (-0.5,-0.6) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item modelled by MC simulation + data derived corrections.
+         \item Corrections are derived in Z-peak region ($|m_{e^{\pm}e^{\pm}} - m_{Z}| < 20$ GeV). 
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Estimation:};
+
+
+\node [mybox, anchor=west] at (-0.5,-3) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Tight electron identification criteria
+         \item Exclude Z-peak region ($|m_{e^{\pm}e^{\pm}} - m_{Z}| < 20$ GeV)
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Background suppression:};
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Non-prompt background} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+
+ \node[inner sep=0pt, anchor=west] (fake_diag) at (6.4,1.4)
+    {
+    \begin{minipage}{3.6cm}
+%     \centering
+%     \noindent\colorbox{pink}{
+% 	\textbf{{\small Fake factor regions}}
+%     }\par
+    \includegraphics[width=3.6cm]{SS/pictures/fakeFactor_method_nuti.png}
+    \end{minipage}
+    };
+
+ \node[anchor=west] (fraction) at (10.4,1.4){
+  \begin{minipage}{2cm}
+   $f = \dfrac{n_{fN}}{n_{fD}}$
+  \end{minipage}
+ };
+ 
+ 
+  \draw[thick,black,->] ([shift={(-0.2,0.15)}]fake_diag.north west) to ([shift={(0.2,0.15)}]fake_diag.north east);
+ 
+ \draw[thick,black,->] ([shift={(-0.2,0.15)}]fake_diag.north west) to ([shift={(-0.2,-0.15)}]fake_diag.south west);
+  
+ \node[anchor=west] (tmp1) at ([shift={(-3.4,0.35)}]fake_diag.north east){
+  \begin{minipage}{1.5cm}
+  \small
+   2 electron
+  \end{minipage}
+ };
+ 
+ \node[anchor=west] (tmp2) at ([shift={(-2,0.35)}]fake_diag.north east){
+  \begin{minipage}{2cm}
+  \small
+   1 electron + 1 jet
+  \end{minipage}
+ };
+ 
+ \node[anchor=west, rotate=90] (tmp2) at ([shift={(-0.35,-1.6)}]fake_diag.west){
+  \begin{minipage}{2cm}
+  \small
+   Anti-Isolated
+  \end{minipage}
+ };
+ 
+  \node[anchor=west, rotate=90] (tmp2) at ([shift={(-0.35,0.4)}]fake_diag.west){
+  \begin{minipage}{2cm}
+  \small
+   Isolated
+  \end{minipage}
+ };
+ 
+ \draw[black,-] ([shift={(-0.0,-0.0)}]fake_diag.north east) to [out=0, in=180] ([shift={(0.0,0.07)}]fraction.west);
+ \draw[black,-] ([shift={(-0.0,-0.0)}]fake_diag.south east) to [out=0, in=180] ([shift={(0.0,0.07)}]fraction.west);
+ 
+ 
+ \node[inner sep=0pt, anchor=west] (ID_pict) at (5.3,-2.8)
+    {
+    \begin{minipage}{5.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Weak isolation on sublead electron}}
+    }\par
+    \includegraphics[width=5.5cm]{SS/pictures/dec13_fake_leadInter_sublNom_v2.eps}
+    \end{minipage}
+    };
+   
+\fill [white] (7.6,-1.6) rectangle (9,-1.4);
+
+\node [mybox, anchor=west] at (-0.5,2) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item QCD multijets, $W$+jets, Drell-Yan+jets, $t\bar{t}$ when \\
+         - hadron or photon is misreconstructed as electron\\
+         - meson inflight decay\\
+         - heavy flavour decay
+         
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Contributing processes:};
+
+\node [mybox, anchor=west] at (-0.5,-0.6) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item ``Fake factor'' data-driven method.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Estimation:};
+
+
+\node [mybox, anchor=west] at (-0.5,-3) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Tight electron identification and isolation requirements
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Background suppression:};
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Signal events} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+
+ \node[inner sep=0pt, anchor=west] at (-0.5,0.7) (box1)
+  {
+    \begin{minipage}{4cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Invariant mass}}
+    }\par
+    \includegraphics[width=4cm]{SS/pictures/2isoSS_ee_mll.eps}
+    \end{minipage}
+  };
+
+ \node[inner sep=0pt, anchor=west] at (3.5,0.7) (box2)
+  {
+    \begin{minipage}{4cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small $p_T$ of the leading electron}}
+    }\par
+    \includegraphics[width=4cm]{SS/pictures/2isoSS_ee_pt1.eps}
+    \end{minipage}
+  };
+
+ \node[inner sep=0pt, anchor=west] at (7.5,0.7) (box3)
+  {
+    \begin{minipage}{4cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small $\eta$ of the leading electron}}
+    }\par
+    \includegraphics[width=4cm]{SS/pictures/2isoSS_ee_eta1.eps}
+    \end{minipage}
+  };
+  
+
+\node [anchor=west] at (-0.5,-3) (box){%
+    \begin{minipage}{\textwidth}
+
+\begin{center}
+
+\noindent\colorbox{pink}{
+    \textbf{{\small Expected and observed number of selected same-sign electron pairs}}
+}\par
+\vspace{0.2cm}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|c|c|c|c|c|c|c}
+\hline
+Sample & \multicolumn{5}{|c}{Number of electron pairs with  $m(e^{\pm}e^{\pm})$} \\
+ & $>15$~GeV & $>100$~GeV & $>200$~GeV & $>300$~GeV & $>400$~GeV & $>500$~GeV & $>600$~GeV \\
+\hline
+Non-prompt	& $ 518.57 \pm 120.17 $	& $ 247.49 \pm 49.5 $	& $ 71.67 \pm 13.15 $	& $ 22.66 \pm 4.8 $	& $ 8.13 \pm 2.42 $	& $ 3.12 \pm 1.49 $	& $ 0.78 \pm 1.01 $	\\[+0.05in]
+$W\gamma$	& $ 175.25 \pm 36.28 $	& $ 74.89 \pm 15.62 $	& $ 22.42 \pm 5.15 $	& $ 8.04 \pm 2.26 $	& $ 3.84 \pm 1.31 $	& $ 2.69 \pm 1.05 $	& $ 1.02 \pm 0.57 $	\\[+0.05in]
+Charge misid.	& $ 1018.54 \pm 145.78 $	& $ 554.37 \pm 77.89 $	& $ 150.31 \pm 27.16 $	& $ 43.01 \pm 12.25 $	& $ 15.62 \pm 7.93 $	& $ 6.27 \pm 4.89 $	& $ 6.25 \pm 4.89 $	\\[+0.05in]
+Prompt	& $ 346.51 \pm 24.95 $	& $ 173.94 \pm 14.44 $	& $ 51.52 \pm 4.93 $	& $ 15.7 \pm 1.92 $	& $ 5.25 \pm 0.92 $	& $ 2.34 \pm 0.49 $	& $ 0.91 \pm 0.28 $	\\[+0.05in]
+\hline
+Total Background	& $ 2058.86 \pm 193.92 $	& $ 1050.69 \pm 94.67 $	& $ 295.92 \pm 30.99 $	& $ 89.41 \pm 13.49 $	& $ 32.83 \pm 8.44 $	& $ 14.41 \pm 5.25 $	& $ 8.96 \pm 5.04 $	\\[+0.05in]
+\hline
+Data	& $ 1976 $	& $ 987 $	& $ 265 $	& $ 83 $	& $ 30 $	& $ 13 $	& $ 7 $	\\[+0.05in]
+
+\hline
+\end{tabular}
+}
+\end{center}
+    
+    \end{minipage}
+};
+
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Cross section limits} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+
+ \node[inner sep=0pt, anchor=west] (ID_pict) at (5.5,1.5)
+    {
+    \begin{minipage}{6cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Fiducial limits for new physics}}
+    }\par
+    \includegraphics[width=6cm]{SS/pictures/limit_ee_all.eps}
+    \end{minipage}
+    };
+
+ \node[inner sep=0pt, anchor=west] (ID_pict) at (5.5,-2.5)
+    {
+    \begin{minipage}{6cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small DCH limits}}
+    }\par
+    \includegraphics[width=6cm]{SS/pictures/limitDCH_ee_all.eps}
+    \end{minipage}
+    };
+
+\node [mybox, anchor=west] at (-0.5,1.9) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Model-independent conservative limit valid for many models: \\
+         $\sigma_{95}^{fid} = \dfrac{N_{95}}{\epsilon_{fid} \times \int \mathscr{L} dt}$
+         \item Fiducial efficiency was defined as the lowest efficiency among 4 different models.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Fiducial cross-section limits};
+
+
+\node [mybox, anchor=west] at (-0.5,-1.2) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Cross section limits on DCH pair production times BR:\\
+         $\sigma_{HH}\times BR =\frac{N_{H}^{rec}}{2\times A\times \epsilon \times \int\mathscr{L} dt}$
+         \item Mass limits are set on left- and right-handed DCH
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {DCH cross-section limits};
+
+\node [mybox, anchor=west] at (-0.5,-3.8555) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{tabular}{c||c|c}
+	& \multicolumn{2}{c}{95\%  C.L. upper limit [GeV]}\\
+	Signal & expected & observed \\
+	\hline
+	$H^{\pm\pm}_L$ & $552.6^{+11.1}_{-49.9}$ & $551.2 \pm 3.1$ \\
+	\hline
+	$H^{\pm\pm}_R$ & $424.8^{+1.0}_{-59.7}$ & $374.0 \pm 6.2$ \\
+	\end{tabular}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {DCH mass limits};
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+
+%% TODO ***Wprime***
+\def\wpe{\ensuremath{\PWprime\rightarrow e \nu}}
+\def\wpmu{\ensuremath{\PWprime\rightarrow \mu \nu}}
+\def\wpl{\ensuremath{\PWprime\rightarrow \Plepton \nu}}
+\newcommand{\syspair}[2] { ${#1}$\%~(${#2}$\%) }
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Search for new charged gauge boson} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+
+%  \node[inner sep=0pt, anchor=west] at (5.5,0.7) (box)
+%     {
+%     \begin{minipage}{5.5cm}
+%     \centering
+%     \noindent\colorbox{pink}{
+% 	\textbf{{\small ???}}
+%     }\par
+%     \includegraphics[width=5.5cm]{Wprime/pictures/feynman_wprime.png}
+%     \end{minipage}
+%     };
+
+ \node[inner sep=0pt, anchor=west] at (5.5,1.2) (box)
+    {
+    \begin{minipage}{5.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small $\Plepton\nu_{\Plepton}$ invariant mass}}
+    }\par
+    \includegraphics[width=5.5cm]{Wprime/pictures/Signal_onTopOf_W_invMass.eps}
+    \end{minipage}
+    };
+
+ \node[inner sep=0pt, anchor=west] (ID_pict) at (5.5,-2.8)
+    {
+    \begin{minipage}{5.5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small $\Plepton\nu_{\Plepton}$ $m_\mathrm{T}$}}
+    }\par
+    \includegraphics[width=5.5cm]{Wprime/pictures/Signal_onTopOf_W_mT.eps}
+    \end{minipage}
+    };
+    
+
+\node [mybox, anchor=west] at (-0.5,1.2) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Search for new charged gauge boson $\PWprime$ appearing in extended gauge models.
+         \item Final state of interest: \\
+         - high-$p_T$ isolated muon \\
+         - large missing transverse momentum $E_{T}^{miss}$
+         \item Signal discriminant: \\
+         $m_\mathrm{T} = \sqrt{2 p_{T} E_{T}^{miss} (1-\cos\varphi_{\Plepton\nu})}$
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Analysis strategy};
+    
+\node [mybox, anchor=west] at (-0.5,-2.8) (box){%
+    \begin{minipage}{0.45\textwidth}
+        Sequential Standard Model (SSM):
+        \begin{itemize}
+         \item Same coupling to fermions as the SM $W$ boson
+         \item No coupling to $W$ and $Z$
+         \item Interference between $W$ and $\PWprime$ is neglected
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Benchmark model:};
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Background estimation} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+% 
+ \node[inner sep=0pt, anchor=west] at (5.5,1.5) (box)
+    {
+    \begin{minipage}{5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small $W+t$ production}}
+    }\par
+    \includegraphics[width=5cm]{Wprime/pictures/top3_feynman.png}
+    \end{minipage}
+    };
+
+ \node[inner sep=0pt, anchor=west] (ID_pict) at (5.5,-2.9)
+    {
+    \begin{minipage}{5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small $t\bar{t}$ production}}
+    }\par
+    \includegraphics[width=5cm]{Wprime/pictures/top_feynman.png}
+    \end{minipage}
+    };
+    
+
+\node [mybox, anchor=west] at (-0.5,1.7) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item $W$+jets, Drell-Yan+jets, $t\bar{t}$, single top, $Wt$, $WW$, $WZ$, $ZZ$ modelled by MC simulation.
+         \item dominant contribution originates from $W$+jets
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Prompt background};
+
+
+\node [mybox, anchor=west] at (-0.5,-2.7) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Contribution from QCD multijets arises due:\\
+         - hadron reconstructed as muon\\
+         - meson inflight decay\\
+         - heavy flavour decay
+         \item Estimated by data-driven ``matrix method``.
+         \item Small contribution to the signal region ($<2\%$).
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Multijet (fake) background};
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Background extrapolation} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+% 
+ \node[inner sep=0pt, anchor=west] at (5.5,1.5) (box)
+    {
+    \begin{minipage}{5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Diboson background fitting}}
+    }\par
+    \includegraphics[width=5cm]{Wprime/pictures/diboson_extrapolate_fits.eps}
+    \end{minipage}
+    };
+
+ \node[inner sep=0pt, anchor=west] (ID_pict) at (5.5,-2.9)
+    {
+    \begin{minipage}{5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small $t\bar{t}$ background fitting}}
+    }\par
+    \includegraphics[width=5cm]{Wprime/pictures/top_extrapolate_fits.eps}
+    \end{minipage}
+    };
+    
+
+\node [mybox, anchor=west] at (-0.5,1.7) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Diboson, $t\bar{t}$ and multi-jet backgrounds suffer from low statistics at high $m_\mathrm{T}$. 
+         \item These backgrounds are fitted in low-$m_\mathrm{T}$ region and are extrapolated to high-$m_\mathrm{T}$.
+         \item Main source of systematic uncertainty at high-$m_\mathrm{T}$ region.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Background extrapolation};
+
+
+\node [mybox, anchor=west] at (-0.5,-2.7) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+	 \item Systematic uncertainty is estimated as the envelope of all fits with different fit ranges and different fit functions:\\ $f(m_\mathrm{T}) = \frac{a}{(m_\mathrm{T}+b)^{c}}$\\ $f(m_\mathrm{T}) = e^{-a} m_\mathrm{T}^{b} m_\mathrm{T}^{c \log(m_\mathrm{T})}$
+        \item Central value: \\fit with best $\chi^2/N_{dof}$
+        \item The fit is used starting from $m_\mathrm{T} = $600 GeV.
+      \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Systematic uncertainty};
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Signal events} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+ 
+ 
+  \node[inner sep=0pt, anchor=west] at (-1.1,1.2) (box2)
+  {
+    \begin{minipage}{3.8cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Missing transverse energy}}
+    }\par
+    \includegraphics[width=3.8cm]{Wprime/pictures/hist_met_muon.eps}
+    \end{minipage}
+  };
+ 
+ 
+ \node[inner sep=0pt, anchor=south] at (9.7,-1) (box1)
+  {
+    \begin{minipage}{7cm}
+    \includegraphics[width=5.5cm]{Wprime/pictures/hist_mt_muon_paper.png}
+    \end{minipage}
+  };
+
+   \node[inner sep=0pt, anchor=north] at (9.55,3.65) (box1)
+  {
+    \begin{minipage}{7cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Transverse mass}}
+    }\par
+   \end{minipage}
+  };
+ 
+  \node[inner sep=0pt, anchor=west] at (2.6,1.2) (box3)
+  {
+    \begin{minipage}{3.8cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Muon transverse momentum}}
+    }\par
+    \includegraphics[width=3.8cm]{Wprime/pictures/hist_pt_muon.eps}
+    \end{minipage}
+  };
+ 
+
+  
+
+
+
+  
+  
+%   \node [mybox, anchor=west] at (-0.8,-2.7) (box){%
+%     \begin{minipage}{0.37\textwidth}
+%         \begin{itemize}
+% 	 \item Dominant background is $W$+jets process.
+% 	 \item Muon momentum reaches up to TeV region
+% 	 \item ???
+%       \end{itemize}
+%     \end{minipage}
+% };
+% \node[fancytitle, right=15pt] at (box.north west) {};
+  
+\node [mybox, anchor=west] at (-0.5,-3) (box){%
+\begin{minipage}{\textwidth}
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|}
+        \multirow{2}{*}{Process} & \multicolumn{4}{c|}{$m_T$ [GeV]} \\
+ &     $110$--$150$     &     $200$--$400$     &     $600$--$1000$     &     $3000$--$7000$    \\    \hline    
+$W$     &     $98100\pm10000$     &     $7700\pm400$     &     $110\pm9$     &     $0.051\pm0.010$    \\    
+Top     &     $9900\pm700$     &     $3090\pm140$     &     $13\pm5$     &     $0.00005\pm0.00030$    \\    
+$Z/\gamma^*$     &     $7700\pm1000$     &     $840\pm70$     &     $7.6\pm1.8$     &     $0.0037\pm0.0007$    \\    
+Diboson     &     $1140\pm80$     &     $326\pm14$     &     $3.8\pm2.1$     &     $0.002\pm0.008$    \\    
+Multi-jet     &     $1350\pm40$     &     $180\pm10$     &     $0.85\pm0.21$     &     $0.00038\pm0.00022$    \\    \hline    
+Total SM    &     $118000\pm12000$     &     $12100\pm600$     &     $135\pm11$     &     $0.058\pm0.013$    \\    \hline    
+Data     &     $131672$     &     $12393$     &     $121$     &     $0$    \\
+\end{tabular}
+\end{center}
+\end{minipage}
+};
+
+
+
+% \node [anchor=west] at (-0.5,-3) (box){%
+%     \begin{minipage}{\textwidth}
+% 
+% \begin{center}
+% 
+% \noindent\colorbox{pink}{
+%     \textbf{{\small Expcted and observed number of selected same-sign electron pairs}}
+% }\par
+% \vspace{0.2cm}
+% \resizebox{\textwidth}{!}{
+% \begin{tabular}{l|c|c|c|c|c|c|c}
+% \hline
+% Sample & \multicolumn{5}{|c}{Number of electron pairs with  $m(e^{\pm}e^{\pm})$} \\
+%  & $>15$~GeV & $>100$~GeV & $>200$~GeV & $>300$~GeV & $>400$~GeV & $>500$~GeV & $>600$~GeV \\
+% \hline
+% Non-prompt	& $ 518.57 \pm 120.17 $	& $ 247.49 \pm 49.5 $	& $ 71.67 \pm 13.15 $	& $ 22.66 \pm 4.8 $	& $ 8.13 \pm 2.42 $	& $ 3.12 \pm 1.49 $	& $ 0.78 \pm 1.01 $	\\[+0.05in]
+% $W\gamma$	& $ 175.25 \pm 36.28 $	& $ 74.89 \pm 15.62 $	& $ 22.42 \pm 5.15 $	& $ 8.04 \pm 2.26 $	& $ 3.84 \pm 1.31 $	& $ 2.69 \pm 1.05 $	& $ 1.02 \pm 0.57 $	\\[+0.05in]
+% Charge Flip total	& $ 1018.54 \pm 145.78 $	& $ 554.37 \pm 77.89 $	& $ 150.31 \pm 27.16 $	& $ 43.01 \pm 12.25 $	& $ 15.62 \pm 7.93 $	& $ 6.27 \pm 4.89 $	& $ 6.25 \pm 4.89 $	\\[+0.05in]
+% Prompt total	& $ 346.51 \pm 24.95 $	& $ 173.94 \pm 14.44 $	& $ 51.52 \pm 4.93 $	& $ 15.7 \pm 1.92 $	& $ 5.25 \pm 0.92 $	& $ 2.34 \pm 0.49 $	& $ 0.91 \pm 0.28 $	\\[+0.05in]
+% \hline
+% Total Background	& $ 2058.86 \pm 193.92 $	& $ 1050.69 \pm 94.67 $	& $ 295.92 \pm 30.99 $	& $ 89.41 \pm 13.49 $	& $ 32.83 \pm 8.44 $	& $ 14.41 \pm 5.25 $	& $ 8.96 \pm 5.04 $	\\[+0.05in]
+% \hline
+% Data	& $ 1976 $	& $ 987 $	& $ 265 $	& $ 83 $	& $ 30 $	& $ 13 $	& $ 7 $	\\[+0.05in]
+% 
+% \hline
+% \end{tabular}
+% }
+% \end{center}
+%         \end{minipage}
+% };
+
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Systematic uncertainty} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+% 
+%  \node[inner sep=0pt, anchor=west] at (5.5,1.5) (box)
+%     {
+%     \begin{minipage}{5cm}
+%     \centering
+%     \noindent\colorbox{pink}{
+% 	\textbf{{\small ???}}
+%     }\par
+%     \includegraphics[width=5cm]{Wprime/pictures/top3_feynman.png}
+%     \end{minipage}
+%     };
+% 
+%  \node[inner sep=0pt, anchor=west] (ID_pict) at (5.5,-2.9)
+%     {
+%     \begin{minipage}{5cm}
+%     \centering
+%     \noindent\colorbox{pink}{
+% 	\textbf{{\small ???}}
+%     }\par
+%     \includegraphics[width=5cm]{Wprime/pictures/top_feynman.png}
+%     \end{minipage}
+%     };
+    
+
+\node [anchor=west] at (-0.5,0) (box){%
+    \begin{minipage}{\textwidth}
+      \centering
+      \begin{tabular}{l|cc}
+      \toprule
+      Source &  Background  &  Signal  \\
+      \midrule
+      Trigger &\syspair{3}{4} & \syspair{4}{4}\\
+      Lepton reconstruction  &\multirow{2}{*}{\syspair{5}{8}} & \multirow{2}{*}{\syspair{5}{7}}\\
+      and identification & & \\
+      Lepton isolation &\syspair{5}{5} & \syspair{5}{5}\\
+      Lepton momentum &\multirow{2}{*}{\syspair{3}{11}} & \multirow{2}{*}{\syspair{1}{4}}\\
+      scale and resolution & & \\
+      $E_T^{miss}$ resolution and scale &\syspair{<0.5}{<0.5} &\syspair{<0.5}{<0.5}\\
+      Jet energy resolution &\syspair{1}{2} &\syspair{<0.5}{<0.5}\\
+      \midrule
+      Multijet background & \syspair{1}{1} & {\sc n/a} ({\sc n/a})\\
+      Diboson \& top-quark bkg. &\syspair{5}{15} & {\sc n/a} ({\sc n/a})\\
+      PDF choice for DY &\syspair{<0.5}{1} & {\sc n/a} ({\sc n/a})\\
+      PDF variation for DY &\syspair{8}{12} & {\sc n/a} ({\sc n/a})\\
+      Electroweak corrections &\syspair{4}{6} & {\sc n/a} ({\sc n/a})\\
+      \midrule
+      Luminosity &\syspair{5}{5} &\syspair{5}{5}\\
+      \midrule
+      Total &\syspair{14}{25} & \syspair{9}{12}\\
+      \bottomrule
+      \end{tabular}
+    \end{minipage}
+};
+% \node[fancytitle, right=15pt] at (box.north west) {???};
+
+\node [mybox, anchor=west] at (-0.5,-4) (box){%
+    \begin{minipage}{11.5cm}
+       Systematic uncertainties on the expected number of events as evaluated at $m_T = $ 2 (4)~TeV.
+    \end{minipage}
+};
+% \node[fancytitle, right=15pt] at (box.north west) {};
+
+% \node [mybox, anchor=west] at (-0.5,-2.7) (box){%
+%     \begin{minipage}{0.45\textwidth}
+%         \begin{itemize}
+%          \item ???
+%         \end{itemize}
+%     \end{minipage}
+% };
+% \node[fancytitle, right=15pt] at (box.north west) {???};
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Mass limits} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+% 
+ \node[inner sep=0pt, anchor=west] (ID_pict) at (5.5,1.5)
+    {
+    \begin{minipage}{5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Combined $\PWprime$ cross section limit}}
+    }\par
+    \includegraphics[width=5cm]{Wprime/pictures/Limit_xsec_wprime_comb_Sys.eps}
+    \end{minipage}
+    };
+    
+ \node[inner sep=0pt, anchor=west] at (5.5,-2.9) (box)
+    {
+    \begin{minipage}{5cm}
+    \centering
+    \noindent\colorbox{pink}{
+	\textbf{{\small Cross section limits comparison}}
+    }\par
+    \includegraphics[width=5cm]{Wprime/pictures/combWprime_summary.pdf}
+    \end{minipage}
+    };
+
+\node [mybox, anchor=west] at (-0.5,1.7) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item First $\PWprime$ mass limits with 13 TeV data in lepton channel in ATLAS.
+         \item Almost 1 TeV improvement on mass limit wrt. 8 TeV results.
+        \end{itemize}
+    \end{minipage}
+};
+% \node[fancytitle, right=15pt] at (box.north west) {};
+    
+\node [mybox, anchor=west] at (-0.5,-3) (box){%
+    \begin{minipage}{0.45\textwidth}
+      \begin{tabular}{c|cc}
+	&  \multicolumn{2}{c}{$m_{\PWprime}$ lower limit [TeV]} \\
+	Decay     &  Expected & Observed \\
+	\hline
+	\wpe  & 3.99 & 3.96 \\
+	\wpmu & 3.72 & 3.56 \\
+	\wpl  & 4.18 & 4.07 \\
+      \end{tabular}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Mass limits};
+
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Summary} 
+% \footnotesize
+
+\begin{tikzpicture}[overlay]
+
+\node [mybox, anchor=north west] at (-0.5,3) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Argon have been implemented in the ATLAS simulation software.
+         \item No strong effect on tracking performance from using Argon mixture in TRT.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {TRT};
+
+\node [mybox, anchor=north east] at (11.0,3) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Robust performance during 2015-2016.
+         \item Was used as main ATLAS monitor during 2015-2016.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {LUCID};
+ 
+\node [mybox, anchor=north west] at (-0.5,-1) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item Fiducial cross section limits on new physics.
+         \item Mass limits on Doubly Charged Higgs.
+         \item Strongest limits at time of publishing.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Same-sign dielectrons};
+ 
+\node [mybox, anchor=north east] at (11.0,-1) (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{itemize}
+         \item First $\PWprime$ mass limits with 13 TeV data in lepton channel in ATLAS.
+         \item Almost 1 TeV improvement on mass limit wrt. 8 TeV results.
+        \end{itemize}
+    \end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Search for $\PWprime$};
+ 
+ 
+ 
+%% HELPER draw advanced helping grid with axises:
+% \draw(-0.5,-4) to[grid with coordinates] (11.5,4);
+
+\end{tikzpicture}
+\end{frame}
+%------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+%% TODO OTHER STUFF
+
+\begin{frame}{ATLAS at the LHC, CERN}
+\includegraphics[width=\textwidth]{TRT/pictures/customevent_register.jpg}
+\end{frame}
+
+
+ { % all template changes are local to this group.
+    \setbeamertemplate{navigation symbols}{}
+    \begin{frame}{QCD background estimation}
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[at=(current page.center)] {
+                \includegraphics[width=0.97\paperwidth]{Oct14_exotics/Yosuke_MatrixMethod.pdf}
+            };
+%             \node[at=(2.5,3.5)] {
+% 	      TEST
+%             };
+%             \node[anchor=south] at (current page.south) {\vspace{-4cm} I am south-bound...};
+%             \draw[thick] (current page.south west) rectangle (current page.north east);
+        \end{tikzpicture}
+     \end{frame}
+}
+
+ 
+ \begin{frame}{QCD background estimation}
+ 
+  \begin{columns}
+  \begin{column}{11cm}
+%   \footnotesize
+      
+  Number of fake leptons coming from QCD background can be expressed as: \\
+  \vspace{0.2cm}
+  \hspace{0.6cm}
+  $\epsilon_F N_F=\frac{\epsilon_{F}}{\epsilon_{R}-\epsilon_{F}}\left(\epsilon_{R}(N_{L}+N_{T})-N_{T}\right)$
+
+  
+  \vspace{0.5cm}
+  
+  
+  \begin{itemize}
+%    \item Electron: Signal selection wo isolation cut and looser electron ID
+   \item Tight selection: Signal selection 
+   \item ``Loose'' selection: Signal selection wo isolation cut
+  \end{itemize}
+  
+  \vspace{0.5cm}
+  Fake Efficiencies are calculated by using jet enriched control region:
+  \begin{itemize}
+   \item No Z Candidate ($|m_{ll}-m_{Z}| > 20$ GeV)
+   \item Inverted $E_{T}^{miss}$ cut
+   \item At least one jet with $p_{T} > 40$ GeV
+  \end{itemize}
+
+    
+  \normalsize
+  \end{column}
+  \begin{column}{1cm}
+%     \includegraphics[width=5cm]{Oct14_exotics/Electrons_NoMETCut_Wprime_hist_met.pdf}\\
+%     \includegraphics[width=5cm]{Oct14_exotics/METloose.pdf}
+  \end{column}
+ \end{columns}
+
+ \end{frame}
+
+
+% \begin{frame}
+% \frametitle{Tag and probe method} 
+% 
+%         \begin{itemize}
+%          \item select lepton pair from Z decay
+%          \item a ``tag'' lepton is the one who pass the tightest possible criterias on lepton ID --> to make sure that it is really an lepton
+%          \item a ``probe'' lepton is required to pass studied selection.
+%          \item see p.22 in Inga's thesis
+%         \end{itemize}
+% 
+% \end{frame}
+
+
+
+% BACKUP SLIDES BELOW:
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Pile-up effect} 
+
+\begin{tikzpicture}[overlay]
+
+
+ \node[inner sep=0pt] (clusters_drift) at (2.5,1.5)
+    {\includegraphics[width=6cm]{LUCID/pictures/pileUpEffect_schematics.png}};
+ 
+ \node[inner sep=0pt] (clusters_drift) at (2.5,-2.5)
+    {\includegraphics[width=6cm]{LUCID/pictures/LowMuWithBi_ampl_preliminary_v2.pdf}};
+        
+        
+\node [mybox] at (8.5,1) (box){%
+\begin{minipage}{5cm}
+    \begin{itemize}
+      \item Signal from different pp-interactions which are below the discriminator threshold can add up and give hits.
+      \item Pile-up leads to an overestimation of the luminosity at high $\mu$.
+    \end{itemize}
+\end{minipage}
+};
+\node[fancytitle, right=15pt] at (box.north west) {Pile-up effect};
+    
+%% HELPER draw advanced helping grid with axises:
+% \draw(0,-4) to[grid with coordinates] (11.5,4);
+    
+\end{tikzpicture}
+
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Electron PID with Ar/Xe mixed TRT condition} 
+    {\includegraphics[width=11cm]{TRT/pictures/elPID_Argon.png}};
+\end{frame}
+%------------------------------------------------
+
+
+% TODO steal slide 3 from LUCID -> atlas_weekly_2016_07_26.pdf
+% TODO steal slide 13 and 16 from TRT -> TRT_PID_Troels.pdf
+
+\end{document}
+

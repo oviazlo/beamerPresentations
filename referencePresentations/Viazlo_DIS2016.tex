@@ -1,0 +1,1704 @@
+\documentclass[8pt]{beamer}
+
+\newif\ifplacelogo % create a new conditional
+\placelogotrue % set it to true
+
+\usetheme{Warsaw}
+\usecolortheme{rose}
+\usepackage{multicol}
+\usepackage{epstopdf}
+\usepackage[italic]{hepnames}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{bbding}
+\lstset{breakatwhitespace,
+language=C++,
+columns=fullflexible,
+keepspaces,
+breaklines,
+tabsize=3, 
+showstringspaces=false,
+extendedchars=true}
+
+% TikZ includes!!!
+\usepackage{tikz}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{calc}
+\tikzstyle{every picture}+=[remember picture]
+\input{/home/oviazlo/PhD_study/myReports/latexHelpScripts/tikzGrid.tex}
+
+
+\begin{document}
+
+
+\graphicspath{ {/home/oviazlo/PhD_study/myReports/pictures/Wprime/DIS2016/} }
+\DeclareGraphicsExtensions{.eps, .pdf, .png}
+
+% poster advertisement
+\newcommand{\myCenterBox}[2][pink] {
+   {\centering
+    \noindent\colorbox{#1}{
+	\textbf{#2}
+    }\par
+  }
+}
+
+\newcommand{\mySmallCenterBox}[2][pink] {
+   {\centering
+    \noindent\colorbox{#1}{
+	\textbf{{\small #2}}
+    }\par
+  }
+}
+
+\newcommand{\myVerySmallCenterBox}[2][pink] {
+   {\centering
+    \noindent\colorbox{#1}{
+	\textbf{{\scriptsize #2}}
+    }\par
+  }
+}
+
+\newcommand{\backupbegin}{
+   \newcounter{finalframe}
+   \setcounter{finalframe}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \setcounter{framenumber}{\value{finalframe}}
+}
+
+\newcommand{\myNode}{\tikz[baseline,inner sep=1pt] \node[anchor=base]}
+
+\definecolor{light-gray}{gray}{0.95}
+% poster advertisement
+
+
+\title[ Searches with high-mass fermionic final states and jets \hspace{6.5em}\insertframenumber/
+\inserttotalframenumber]{ Searches for new physics in high-mass fermionic final states and jets with the ATLAS detector at the LHC }
+
+
+	\author[Oleksandr Viazlo on behalf of the ATLAS collaboration]{Oleksandr Viazlo \\ {\small on behalf of the ATLAS collaboration}}
+	\institute{\small Lund University\\} 
+	
+       
+	\date{13 April 2016}
+
+	\logo{ \ifplacelogo \includegraphics[height=1.8cm]{./ID_week2/lund_uni-logo_s.pdf} \hspace{0.4cm} \fi}
+
+	
+   	\frame{\titlepage}
+
+   	
+
+\placelogofalse
+
+%*****************************************************************************
+\begin{frame}{\large \large Introduction}
+ 
+ \myCenterBox{Resonant and non-resonant searches for new physics}
+ 
+ 
+ \begin{columns}
+  \begin{column}{6.5cm}
+  \vspace{0.25cm} \\
+  \noindent\colorbox{pink}{
+	\textbf{Covered analysis}
+    }\par
+    \vspace{0.1cm}
+    \begin{itemize}
+     \item 13 TeV data only.
+     \begin{itemize}
+      \item 3.0 - 3.6 $fb^{-1}$ of luminosity.
+     \end{itemize}
+%       \vspace{0.2cm}
+     \item High-mass final states only.
+    \end{itemize}
+  
+    \includegraphics[width=6cm]{intlumivstime2015DQ.pdf}\\
+    
+    \begin{itemize}
+     \item 8 analysis in total $\to$ no many details on the slides $\to$ follow references to find out more!
+    \end{itemize}
+
+    
+    \begin{tikzpicture}[overlay]
+
+    %% HELPER draw advanced helping grid with axises:
+%     \draw (0,0.5) to[grid with coordinates] (6,9);
+
+    \end{tikzpicture}
+  
+  \end{column}
+  \begin{column}{6cm}
+  
+      
+   \noindent\colorbox{pink}{
+	\textbf{Fermionic final states}
+    }\par
+   \begin{itemize}
+    \item {\bf lepton + $E_\mathrm{T}^{miss}$} [$\PWprime$]
+    \item {\bf di-lepton $\Plepton^{\pm}\Plepton^{\mp}$} [$\PZprime$, Contact Interaction (CI)]
+    \item {\bf di-lepton $e^{\pm}\mu^{\mp}$} [$\PZprime$, Quantum Black Holes (QBH)]
+   \end{itemize}
+   \vspace{0.5cm}
+   \noindent\colorbox{pink}{
+	\textbf{Hadronic final states (jets)}
+    }\par
+   \begin{itemize}
+    \item {\bf di-jet} [QBH, $q^{*}$, $\PWprime$, CI]
+    \item {\bf di-jet with b-tagging} [$b^{*}$, $\PZprime$]
+    \item {\bf multijet} [QBH, string balls]
+   \end{itemize}
+   \vspace{0.5cm}
+   \noindent\colorbox{pink}{
+	\textbf{Mixed final states}
+    }\par
+    \begin{itemize}
+    \item {\bf lepton and 2 jets/leptons} [QBH]
+    \item {\bf 2 leptons and 2+ jets} [leptoquarks]
+   \end{itemize}
+    
+  \end{column}
+ \end{columns}
+ 
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Physics objects performance at 13 TeV}
+
+ \begin{columns}
+  \begin{column}{4cm}
+   \myVerySmallCenterBox{Muon Identification Efficiencies}
+   \includegraphics[width=4cm]{performance/muEff.pdf}\\
+  \end{column}
+  \begin{column}{4cm}
+   \myVerySmallCenterBox{$E_\mathrm{T}^{miss}$ uncertainty}
+   \includegraphics[width=4cm]{performance/MET_rms_muons.png}\\
+  \end{column}
+  \begin{column}{4cm}
+   \begin{itemize}
+    \item \textbf{Lepton} efficiencies and energy corrections are measured in $J/\psi \to \Plepton\Plepton$
+    and $Z \to \Plepton\Plepton$ events.
+    \item \textbf{$E_\mathrm{T}^{miss}$} resolution and scale are evaluated from $Z\to \mu\mu$ events.
+   \end{itemize}
+  \end{column}
+ \end{columns}
+
+ \vspace{0.5cm}
+ 
+ \begin{columns}
+  \begin{column}{4cm}
+   \myVerySmallCenterBox{Jet Energy Scale uncertainty}
+   \includegraphics[width=4cm]{performance/fig_06.png}\\
+  \end{column}
+  \begin{column}{4cm}
+   \myVerySmallCenterBox{Light jet rejection vs. b-jet tag efficiency}
+   \includegraphics[width=4cm]{performance/bTaggingEff.png}\\
+  \end{column}
+  \begin{column}{4cm}
+   \begin{itemize}
+    \item \textbf{Jet} Energy Scale uncertainty is below 3$\%$ for TeV jets.
+    \item Significant improvement of \textbf{b-tagging} performance:
+    \begin{itemize}
+    {\small
+     \item Insertable B-Layer (IBL).
+     \item better tracking in dense environment.
+     \item improved b-tagging algorithms.
+     }
+    \end{itemize}
+
+   \end{itemize}
+  \end{column}
+ \end{columns}
+ 
+ 
+  \begin{tikzpicture}[overlay]
+
+  %% HELPER draw advanced helping grid with axises:
+%     \draw (0,0) to[grid with coordinates] (6,9);
+  
+    \node[right] (textNode) at (0.45,5.0) {
+      {\tiny \href{http://arxiv.org/abs/1603.05598}{arXiv:1603.05598} }
+    };
+    
+    \node[right] (textNode) at (4.7,4.8) {
+      {\tiny \href{http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PLOTS/JETM-2016-003/}{JETM-2016-003} }
+    };
+
+    \node[right] (textNode) at (0.45,0.5) {
+      {\tiny \href{http://cds.cern.ch/record/2037613}{ATL-PHYS-PUB-2015-015} }
+    };
+
+    \node[right] (textNode) at (4.5,0.0) {
+      {\tiny \href{http://cds.cern.ch/record/2037697}{ATL-PHYS-PUB-2015-022} }
+    };
+    
+    
+    
+  \end{tikzpicture}
+ 
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+% \bgroup
+% \setbeamercolor{background canvas}{bg=white}
+\begin{frame}{}
+
+    \begin{tikzpicture}[overlay]
+
+    %% HELPER draw advanced helping grid with axises:
+%     \draw (0,-5) to[grid with coordinates] (11,3);
+
+    \node[right] (textNode) at (3,0) {
+      { \large \bf Fermionic final states  }
+    };
+    
+    \node[right] (n1) at (5,-0.7) {
+        \EightStarTaper lepton + $E_\mathrm{T}^{miss}$
+    };
+    
+    \node[right] (n2) at (5,-1.2) {
+        \EightStarTaper di-lepton $\Plepton^{\pm}\Plepton^{\mp}$
+    };
+    
+    \node[right] (n3) at (5,-1.7) {
+        \EightStarTaper di-lepton $e^{\pm}\mu^{\mp}$
+    };
+    
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-0.5cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n1.west);
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-1.0cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n2.west);
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-1.5cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n3.west);
+
+    \end{tikzpicture}
+
+\end{frame}
+% \egroup
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large lepton + $E_\mathrm{T}^{miss}$}
+  
+  \begin{columns}
+   \begin{column}{6cm}
+    \myCenterBox{Electron channel}
+    \includegraphics[width=6cm]{leptonPlusMET/fig_01a.png}\\
+   \end{column}
+   \begin{column}{6cm}
+    \myCenterBox{Muon channel}
+    \includegraphics[width=6cm]{leptonPlusMET/fig_01b.png}\\
+   \end{column}
+  \end{columns}
+  \begin{columns}
+   \begin{column}{6cm}
+    \begin{itemize}
+     \item Exactly \textbf{one isolated electron(muon)} with $p_\mathrm{T}>$ 65(55) GeV
+     \item \textbf{$E_\mathrm{T}^{miss}$} $>$ 65(55) GeV
+     \item Search variable: \\ $m_\mathrm{T} = \sqrt{2 p_\mathrm{T} E_\mathrm{T}^{miss} (1-\cos\varphi_{\Plepton\nu})}$
+    \end{itemize}
+    \myCenterBox[yellow]{\href{https://cds.cern.ch/record/2114829}{ATLAS-CONF-2015-063}}
+   \end{column}
+   \begin{column}{6cm}
+    \begin{itemize}
+     \item Dominant background processes:
+     \begin{itemize}
+       \item W, Z - from Monte Carlo simulation\\ {\scriptsize (mass dependent NNLO pQCD and NLO EW corrections)}
+       \item top - from Monte Carlo simulation\\ {\scriptsize (accurate to NNLO in pQCD)}
+       \item multijet - data-driven “matrix” method
+     \end{itemize}
+     \item No significant deviation from SM is observed.
+    \end{itemize}
+   
+   \end{column}
+  \end{columns}
+
+  
+ \end{frame}
+%*****************************************************************************
+%*****************************************************************************
+  \begin{frame}{\large lepton + $E_\mathrm{T}^{miss}$}
+  
+  \begin{columns}
+   \begin{column}{5cm}
+   
+    \myCenterBox{13 TeV results}
+    {\centering
+    \includegraphics[width=5cm]{leptonPlusMET/tab_02.pdf}\\
+    }
+   
+    \myCenterBox{8 TeV results}
+%       \begin{table}[!htbp]
+% 	\centering
+	\begin{tabular}{c|cc}
+	  \hline
+	  \hline
+	  Decay     &  ATLAS & CMS \\
+	  \hline
+	  \ensuremath{\PWprime\rightarrow \ell \nu} & 3.24 TeV & 3.28 TeV \\
+	  \hline
+	  \hline
+	\end{tabular}
+%       \end{table}
+   \vspace{0.2cm}\\
+   \myCenterBox[yellow]{\href{https://cds.cern.ch/record/2114829}{ATLAS-CONF-2015-063}}
+   \end{column}
+   \begin{column}{7cm}
+    \includegraphics[width=7cm]{leptonPlusMET/fig_03.png}\\
+    
+   \end{column}
+  \end{columns}
+  
+  \begin{itemize}
+    \item Benchmark model: $\PWprime$ Sequential Standard Model (SSM)
+      \begin{itemize}
+	\item Heavier copy of the SM W, same couplings
+	\item Branching ratio to WZ set to 0, no interference to W
+      \end{itemize}
+    \item {\bf Almost 1 TeV improvement on limits}
+  \end{itemize}
+  
+ \end{frame}
+%*****************************************************************************
+%*****************************************************************************
+ \begin{frame}{\large di-lepton $\Plepton^{\pm}\Plepton^{\mp}$}
+    \begin{columns}
+   \begin{column}{6cm}
+    \myCenterBox{Di-electron}
+    \includegraphics[width=6cm]{dilepton/fig_01a.png}\\
+   \end{column}
+   \begin{column}{6cm}
+    \myCenterBox{Di-muon}
+    \includegraphics[width=6cm]{dilepton/fig_01b.png}\\
+   \end{column}
+  \end{columns}
+  \begin{columns}
+   \begin{column}{6cm}
+    \begin{itemize}
+     \item At least \textbf{2 isolated leptons} \\with $p_\mathrm{T} >$ 30 GeV
+     \vspace{0.2cm}
+     \item Search variable: di-lepton invariant mass
+    \end{itemize}
+    \myCenterBox[yellow]{\href{https://cds.cern.ch/record/2114842}{ATLAS-CONF-2015-070}}
+   \end{column}
+   \begin{column}{6cm}
+    \begin{itemize}
+     \item Dominant background processes:
+     \begin{itemize}
+      \item Drell-Yan Z/$\gamma$ - from Monte Carlo simulation\\ {\scriptsize (mass dependent NNLO pQCD and NLO EW corrections)}
+     \end{itemize}
+%      \item MC are rescaled in the normalisation region 80 GeV $< m_{\Plepton\Plepton} <$ 120 GeV.
+     \item Sums of backgrounds are rescaled to match data 
+	   in the normalisation region \\ 80 GeV $< m_{\Plepton\Plepton} <$ 120 GeV.
+     \item No significant excess observed.
+    \end{itemize}
+     
+   \end{column}
+  \end{columns}
+  
+ \end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large di-lepton $\Plepton^{\pm}\Plepton^{\mp}$}
+
+\begin{columns}
+  \begin{column}{5.5cm}
+  
+  \myCenterBox{\textbf{Resonant} $\PZprime$ models}
+  \begin{itemize}
+    \item Benchmark SSM (same as for the $\PWprime$):
+    \begin{itemize}
+      \item $\PZprime$ has the same couplings as SM Z
+    \end{itemize}
+    \item $E_6$ Grand Unified Theory:
+    \begin{itemize}
+      \item $E_6 \rightarrow SU(5) \times U(1)_{\chi} \times U(1)_{\psi}$
+      \item $\PZprime(\theta_{E_6}) = Z'_{\psi}\cos\theta_{E_6} + Z'_{\chi}\sin\theta_{E_6}$
+      \item 6 commonly motivated states of $\PZprime$ namely:
+	    $Z'_{\psi}, Z'_{N}, Z'_{\eta}, Z'_{I}, Z'_{S}, Z'_{\chi}$
+    \end{itemize}
+    \item {\bf 400-500 GeV improvements on limits over Run 1 results}
+  \end{itemize}
+  
+  \myCenterBox[yellow]{\href{https://cds.cern.ch/record/2114842}{ATLAS-CONF-2015-070}}
+  
+  \end{column}
+  \begin{column}{7cm}
+  \includegraphics[width=7cm]{dilepton/fig_03c.png}\\
+  
+  \end{column}
+\end{columns}
+
+{\centering
+\includegraphics[width=8cm]{dilepton/tab_03.pdf}\\
+}
+% \begin{columns}
+%  \begin{column}{7cm}
+%   \includegraphics[width=7cm]{dilepton/tab_03.pdf}\\
+%  \end{column}
+%  \begin{column}{5cm}
+%   \includegraphics[width=5cm]{dilepton/fig_02c.png}\\
+%  \end{column}
+% \end{columns}
+
+
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large di-lepton $\Plepton^{\pm}\Plepton^{\mp}$}
+
+\begin{columns}
+  \begin{column}{5cm}
+  
+  \myCenterBox{\textbf{Non-Resonant} Contact Interaction (CI)}
+  \begin{itemize}
+    \item Quark and Lepton Compositeness:
+    \begin{itemize}
+      \item Characteristic energy scale $\varLambda$ corresponds to binding energy between constituents
+      \item $\eta_{ij}$ gives chiral structure of the interaction
+    \end{itemize}
+    \item Excpect non-resonant deviations in the di-lepton mass spectrum.
+  \end{itemize}
+  \myCenterBox[yellow]{\href{https://cds.cern.ch/record/2114842}{ATLAS-CONF-2015-070}}
+  \end{column}
+  \begin{column}{7cm}
+  \includegraphics[width=7cm]{dilepton/fig_04.png}\\
+  
+  \end{column}
+\end{columns}
+
+{\centering
+  \includegraphics[width=7cm]{dilepton/CI_feynman.png}\\
+}
+
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large di-lepton $e^{\pm}\mu^{\mp}$}
+
+\begin{columns}
+  \begin{column}{6cm}
+    \begin{itemize}
+      \item Direct production of $e^{\pm}\mu^{\mp}$ pair is forbidden by 
+	    lepton flavour conservation in SM.\\ 
+      \item Is allowed in many extensions of the SM \\
+	    ($\PZprime$, Quantum Black Hole (QBH) models).
+      \item Main backgrounds - from MC simulations. \\
+	    Multi-Jet - data-driven matrix method.
+      \item \textbf{0.5 TeV improvement on $\PZprime$ limit.}
+    \end{itemize}
+    
+    \includegraphics[width=5.8cm]{emuDilepton/fig_08a.png}\\
+    
+  \end{column}
+  \begin{column}{6.2cm}
+    \myCenterBox[yellow]{\href{https://cds.cern.ch/record/2114844}{ATLAS-CONF-2015-072}}    
+    \includegraphics[width=6.5cm]{emuDilepton/fig_07a.png}\\
+    
+%     \myCenterBox{$\PZprime$} \\
+
+%     \includegraphics[width=5.8cm]{emuDilepton/fig_08a.png}\\
+%     \myCenterBox{QBH} \\
+%     \includegraphics[width=5.8cm]{emuDilepton/fig_08b.png}\\
+      
+  \end{column}
+\end{columns}
+
+{\centering
+  \includegraphics[width=8cm]{emuDilepton/tab_03.png}\\
+}
+
+\end{frame} 
+%*****************************************************************************
+%*****************************************************************************
+% \bgroup
+% \setbeamercolor{background canvas}{bg=white}
+\begin{frame}{}
+
+    \begin{tikzpicture}[overlay]
+
+    %% HELPER draw advanced helping grid with axises:
+%     \draw (0,-5) to[grid with coordinates] (11,3);
+
+    \node[right] (textNode) at (3,0) {
+      { \large \bf Hadronic final states (jets) }
+    };
+    
+    \node[right] (n4) at (5,-0.7) {
+        \EightStarTaper di-jet
+    };
+    
+    \node[right] (n5) at (5,-1.2) {
+        \EightStarTaper di-jet with b-tagging
+    };
+    
+    \node[right] (n6) at (5,-1.7) {
+        \EightStarTaper multijet
+    };
+    
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-0.8cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n4.west);
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-1.3cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n5.west);
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-1.8cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n6.west);
+
+    \end{tikzpicture}
+
+\end{frame}
+% \egroup
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Di-jet}
+\begin{columns}
+ \begin{column}{6cm}
+    \begin{itemize}
+      \item At least \textbf{two jets} with $p_\mathrm{T}>$ 440 (50) GeV.
+      \vspace{0.2cm}
+      \item Search variable: mass $m_{jj}$ of the two leading jets.
+      \vspace{0.2cm}
+      \item QCD predicts a smoothly falling dijet mass $\rightarrow$ model it with power law function: \\
+      \vspace{0.1cm}
+      $f(z)=p_{1}(1-z)^{p_{2}}z^{p_{3}}$, where $z \equiv m_{jj}/\sqrt{s}$
+      \vspace{0.2cm}
+      \item Look for localized excesses wrt. background model.
+      \vspace{0.2cm}
+      \item Di-jet mass resolution: 2-2.5$\%$
+      \vspace{0.2cm}
+      \item No significant deviation observed.
+    \end{itemize}
+ \end{column}
+ \begin{column}{6cm}
+  \includegraphics[width=6cm]{dijet/fig_01.png}\\
+  \myCenterBox[yellow]{\href{http://arxiv.org/abs/1512.01530}{arXiv:1512.01530}}
+ \end{column}
+\end{columns}
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Di-jet angular analysis}
+ \begin{columns}
+ \begin{column}{6cm}
+    \begin{itemize}
+      \item Complementary to di-jet resonance analysis which does not have sensitivity for wide resonance.
+      \vspace{0.2cm}
+      \item Search variable: invariant rapidity $\chi$ in different $m_{jj}$ ranges.
+      \vspace{1.5cm}
+      \item Beyond Standard Model (BSM) signal are expected at large angles wrt. the beam $\rightarrow$ at low $\chi$.
+      \vspace{0.2cm}
+%       \item The highest $m_{jj}$ measured is 7.9 TeV.
+      \item No significant excess observed.
+      \vspace{0.2cm}
+      \item New mass region explored: $m_{jj}>5.4$ TeV was not reachable for 8 TeV analysis.
+    \end{itemize}
+    \vspace{1.7cm}
+    \begin{tikzpicture}[overlay]
+
+    %% HELPER draw advanced helping grid with axises:
+%     \draw (0.5,-2.5) to[grid with coordinates] (6,10);
+    
+     \node[right] (textNode) at (0,0.9) {
+       \includegraphics[width=2.9cm]{chi_1.png}
+     };
+     \node[right] (textNode) at (3,0.9) {
+       \includegraphics[width=2.9cm]{chi_14.png}
+     };
+     \node[right] (textNode) at (0.5,5.8) {
+       \mySmallCenterBox[light-gray]{$y = ln\left(\dfrac{E+p_z}{E-p_z}\right) \rightarrow y^{*} = \dfrac{y1-y2}{2}$}
+     };
+     \node[right] (textNode) at (1.7,5.05) {
+       \mySmallCenterBox[light-gray]{$\chi = e^{2|y^{*}|} = e^{|\Delta y|}$}
+     };
+ 
+    \end{tikzpicture}
+    
+ \end{column}
+ \begin{column}{6cm}
+  \includegraphics[width=6cm]{dijet/fig_02.png}\\
+  \myCenterBox[yellow]{\href{http://arxiv.org/abs/1512.01530}{arXiv:1512.01530}}
+ \end{column}
+\end{columns}
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Di-jet}
+\begin{columns}
+ \begin{column}{6cm}
+  \includegraphics[width=5.5cm]{dijet/fig_03.png}\\
+ \end{column}
+ \begin{column}{6cm}
+  \includegraphics[width=5cm]{dijet/fig_06.png}\\
+  \myCenterBox[yellow]{\href{http://arxiv.org/abs/1512.01530}{arXiv:1512.01530}}
+ \end{column}
+\end{columns}
+{\centering
+\includegraphics[width=9cm]{dijet/tab_01.png}\\
+}
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Di-jet with b-tagging}
+
+\begin{columns}
+  \begin{column}{6cm}
+    \begin{itemize}
+      \item Similar selection as for di-jet analysis. 
+      \vspace{0.15cm}
+      \item Signal regions:
+      \begin{itemize}
+       \item $\geq$1 b-tagged jets.
+       \item 2 b-tagged jets.
+      \end{itemize}
+      \vspace{0.15cm}
+      \item Background prediction is compatible with data.
+      \vspace{0.15cm}
+      \item Excluded mass limits: \\
+        \begin{itemize}
+         \item \textbf{$b^*$: 1.1-2.1 TeV}
+         \item \textbf{leptophobic $\PZprime$: 1.1-1.5 TeV}
+        \end{itemize}
+      \vspace{0.15cm}
+%       \item \textbf{Original 13 TeV limits.}
+      \item No such analysis for 8 TeV period.
+    \end{itemize}
+%     \vspace{1cm}
+    {\centering
+      \includegraphics[width=6cm]{bTaggedDijet/fig_05.png}\\
+    }
+  \end{column}
+  \begin{column}{6cm}
+    {\centering
+    \includegraphics[width=4.5cm]{bTaggedDijet/excitedQuark.png}\\
+    }
+    \vspace{0.2cm} 
+    \includegraphics[width=6cm]{bTaggedDijet/fig_04a.png}\\
+    \myCenterBox[yellow]{\href{http://arxiv.org/abs/1603.08791}{arXiv:1603.08791}}
+  \end{column}
+\end{columns}
+
+\end{frame} 
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Multijet}
+ \begin{itemize}
+  \item At least \textbf{three jets} with $p_\mathrm{T} >$ 50 GeV and $|\eta| <$ 2.8
+  \vspace{0.2cm}
+  \item Search variable: Scalar sum of jet transverse momenta ($H_\mathrm{T}$) $>$ 1 TeV
+  \vspace{0.2cm}
+  \item SM background prediction - smooth fit by data (10 functions tested):
+  \begin{itemize}
+   \item is done in low-$H_\mathrm{T}$ Control Region (CR)
+   \item is cross-checked in medium-$H_\mathrm{T}$ Validation Region (VR)
+   \item is used for SM backgound prediction in high-$H_\mathrm{T}$ Signal Region (SR)
+  \end{itemize}
+  \vspace{0.2cm}
+  \item No significant excess observed.
+%   \item In order to be sure that CR and VR are not contaminated by possible signal - 
+% 	use bootstrap approach: re-define regions and search in incrementally larger data sets
+ \end{itemize}
+ \vspace{0.2cm}
+ \begin{columns}
+  \begin{column}{7cm}
+%    \myCenterBox{Step 1: 6.5 pb$^{-1}$}
+   {\centering
+   \includegraphics[width=7cm]{multijet/figaux_17a.png}\\
+   }
+  \end{column}
+%   \begin{column}{3cm}
+%    \myCenterBox{Step 2: 74 pb$^{-1}$}
+%    \myCenterBox{Step 3: 0.44 fb$^{-1}$}
+%   \end{column}
+  \begin{column}{5cm}
+%   \myCenterBox{Step 4: 3.0 fb$^{-1}$}
+  {\centering
+   \includegraphics[width=5cm]{multijet/fig_08.png}\\
+   }
+  \end{column}
+ \end{columns}
+
+  \begin{tikzpicture}[overlay]
+
+  %% HELPER draw advanced helping grid with axises:
+%       \draw (0,0) to[grid with coordinates] (12,6);
+
+  \node[right] (textNode) at (7.9,4.9) {
+      \myVerySmallCenterBox{CR}
+  };
+  \node[right] (textNode) at (9.05,4.9) {
+      \myVerySmallCenterBox{VR}
+  };
+  \node[right] (textNode) at (10.1,4.9) {
+      \myVerySmallCenterBox{SR}
+  };
+  \node[right] (textNode) at (8,5.5) {
+      \myCenterBox[yellow]{\href{http://arxiv.org/abs/1512.02586}{arXiv:1512.02586}}
+  };
+  
+  
+  \end{tikzpicture}
+ 
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Multijet}
+  \begin{columns}
+  \begin{column}{6cm}
+   \myCenterBox{Rotating black holes model}
+   \includegraphics[width=6cm]{multijet/fig_09.png}\\
+   
+  \end{column}
+  \begin{column}{6cm}
+   \myCenterBox{String ball model}
+   \includegraphics[width=6cm]{multijet/fig_11b.png}\\
+   \end{column}
+ \end{columns}
+ 
+
+  \begin{columns}
+  \begin{column}{6cm}
+    \begin{itemize}
+      \item Limits for rotating black holes with \\2,4 and 6 extra dimensions are set  as a function:
+      \begin{itemize}
+      \item fundamental Planck scale ($M_D$)
+      \item mass threshold ($M_{th}$)
+      \end{itemize}
+    \end{itemize}
+    
+  \end{column}
+  \begin{column}{6cm}
+    \begin{itemize}
+      \item Limits for String balls with 6 extra dimensions are set as a function:
+      \begin{itemize}
+      \item string scale ($M_S$)
+      \item mass threshold ($M_{th}$)
+      \item string coupling ($g_S$)
+      \end{itemize}
+    \end{itemize}
+  \end{column}
+ \end{columns}
+ \vspace{0.5cm}
+ {\centering
+ \textbf{Almost 4 TeV improvement of limit in $M_{th}$}.\\
+ }
+ \myCenterBox[yellow]{\href{http://arxiv.org/abs/1512.02586}{arXiv:1512.02586}}
+ 
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+% \bgroup
+% \setbeamercolor{background canvas}{bg=white}
+\begin{frame}{}
+
+    \begin{tikzpicture}[overlay]
+
+    %% HELPER draw advanced helping grid with axises:
+%     \draw (0,-5) to[grid with coordinates] (11,3);
+
+    \node[right] (textNode) at (3,0) {
+      { \large \bf Mixed final states }
+    };
+    
+    \node[right] (n7) at (4.4,-0.7) {
+        \EightStarTaper lepton and 2 jets/leptons
+    };
+    
+    \node[right] (n8) at (4.4,-1.2) {
+        \EightStarTaper 2 leptons and 2+ jets
+    };
+        
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-0.8cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n7.west);
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-1.3cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n8.west);
+    
+
+    \end{tikzpicture}
+
+\end{frame}
+% \egroup
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Lepton + 2 Jets/Leptons }
+
+  \begin{columns}
+   \begin{column}{6cm}
+    \myCenterBox{Electron channel}
+    \includegraphics[width=6cm]{leptonsPlusJets/fig_04a.png}\\
+   \end{column}
+   \begin{column}{6cm}
+    \myCenterBox{Muon channel}
+    \includegraphics[width=6cm]{leptonsPlusJets/fig_04b.png}\\
+   \end{column}
+  \end{columns}
+  \begin{columns}
+   \begin{column}{6cm}
+   \begin{itemize}
+  \item At least \textbf{one lepton} with $p_\mathrm{T} >$ 100 GeV.
+  \item \textbf{Two additional objects} (leptons or jets) with $p_\mathrm{T} >$ 100 GeV.
+  \item Search variable: $\sum p_\mathrm{T}$ of all leptons/jets with $p_\mathrm{T} >$ 60 GeV ($\sum p_\mathrm{T} >$ 2 or 3 TeV).
+ \end{itemize}
+  \myCenterBox[yellow]{\href{https://cds.cern.ch/record/2139640}{ATLAS-CONF-2016-006}}
+   \end{column}
+   \begin{column}{6cm}
+    \begin{itemize}
+     \item The $t\overline{t}$, $W$+jets and $Z$+jets background normalisation are taken from 
+	   simultaneous fit in background dedicated CRs.
+     \item Validation Region: \\
+           1.5 $< \sum p_\mathrm{T} <$ 2.0 TeV.
+     \item No significant excess observed.
+    \end{itemize}
+   
+   \end{column}
+  \end{columns}
+
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Lepton + 2 Jets/Leptons}
+ 
+\begin{columns}
+ \begin{column}{6cm}
+    \begin{itemize}
+      \item Limits for rotating black holes with \\2,4 and 6 extra dimensions are set as a function:
+      \vspace{0.2cm}
+      \begin{itemize}
+      \item fundamental Planck scale ($M_D$)
+      \vspace{0.2cm}
+      \item mass threshold ($M_{th}$)
+      \end{itemize}
+      \vspace{0.2cm}
+      \item  Upper limits on the possible contribution of new physics processes 
+      in this class of final states are set at:
+      \begin{itemize}
+       \item 12.1 fb for $\sum p_\mathrm{T} >$ 2 TeV
+       \item 3.4 fb for $\sum p_\mathrm{T} >$ 3 TeV
+      \end{itemize}
+      \vspace{0.2cm}
+      \item \textbf{Limit in $M_{th}$ is improved by almost 3 TeV.}
+      
+    \end{itemize}
+ \end{column}
+ \begin{column}{6cm}
+  \includegraphics[width=6cm]{leptonsPlusJets/fig_05.png}\\
+  \myCenterBox[yellow]{\href{https://cds.cern.ch/record/2139640}{ATLAS-CONF-2016-006}}
+ \end{column}
+\end{columns}
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Lepton-jet resonances {\small (2 leptons and 2+ jets)}}
+
+  \begin{columns}
+   \begin{column}{6cm}
+    \myCenterBox{Electron channel}
+    \includegraphics[width=5cm]{leptoquarck/eejj_m_LQ_min.pdf}\\
+    \begin{itemize}
+     \item Inclusive search for a new physics signature of lepton-jet resonances.
+     \item {\bf 2 electrons} ({\bf muons}) with $p_\mathrm{T}>30(40)$ GeV and {\bf 2+ jets} with $p_\mathrm{T}>50$ GeV.
+     \item 2 lepton-jet pairs: invariant mass difference between them has to be the smallest.
+    \end{itemize}
+   \myCenterBox[yellow]{\href{http://arxiv.org/abs/1605.06035}{arXiv:1605.06035}}
+   \end{column}
+   \begin{column}{6cm}
+    \myCenterBox{Muon channel}
+    \includegraphics[width=5cm]{leptoquarck/mumujj_m_LQ_min.pdf}\\
+    \begin{itemize}
+%      \item Discriminant variables:
+%       \begin{itemize}
+%        \item di-lepton invariant mass $m_{\Plepton\Plepton} >$ 130 GeV
+%        \item $S_\mathrm{T} = \sum p_\mathrm{T}$ of 2 leptons and 2 leading jets ($>$ 600GeV)
+%       \end{itemize}
+    \item The $t\overline{t}$ and DY+jets background normalisation are taken from 
+	   simultaneous fit in background CRs.
+    \vspace{0.2cm}
+     \item Search variable:
+     \begin{itemize}
+      \item $m^{min}_{LQ}$ - minimum invariant mass of 2 lepton-jet pairs\\ {\small ($\sum p_\mathrm{T}$ $>$ 600 GeV; $m_{\Plepton\Plepton}$ $>$ 130 GeV)}.
+     \end{itemize}
+
+    \end{itemize}
+
+   \end{column}
+  \end{columns}
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Lepton-jet resonances {\small (2 leptons and 2+ jets)}}
+
+  \begin{columns}
+   \begin{column}{7.5cm}
+    \begin{itemize}
+      \item Tested model: pair production of first- and second-generation scalar leptoquarks (mBRW model).
+      \vspace{0.15cm}
+      \item Excluded LQ’s mass ranges (BR=1):
+      \begin{itemize}
+       \item \textbf{ $m_{LQ1} < 1100$ GeV; $m_{LQ2} < 1050$ GeV }
+      \end{itemize}
+      \item Observed limit is \textbf{stronger by 50 GeV} comparing with ATLAS Run 1 result. 
+      \vspace{0.15cm}
+
+      \item Limits with different values of BR were set as well.
+    \end{itemize}
+    \myCenterBox[yellow]{\href{http://arxiv.org/abs/1605.06035}{arXiv:1605.06035}}
+    \vspace{0.05cm}
+    {\centering
+      \includegraphics[width=7.5cm]{leptoquarck/feynman.png}\\
+      \includegraphics[width=3.5cm]{leptoquarck/LQ_decay.png}\\
+    }
+
+   \end{column}
+   \begin{column}{4.5cm}
+    \includegraphics[width=4.5cm]{leptoquarck/Limit_eejj.pdf}\\
+    \includegraphics[width=4.5cm]{leptoquarck/Limit_mumujj.pdf}\\
+   \end{column}
+  \end{columns}
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Summary of exclusion limits}
+
+%   \begin{columns}
+%   \begin{column}{3cm}
+%     \mySmallCenterBox{}
+%   \end{column}
+%   \begin{column}{3cm}
+%     \begin{itemize}
+%      \item
+%     \end{itemize}
+%   \end{column}
+%   \begin{column}{3.3cm}
+%     \begin{itemize}
+%      \item[] 
+%     \end{itemize}
+%   \end{column}
+%   \begin{column}{2.7cm}
+%     \begin{itemize}
+%      \item[] 
+%     \end{itemize}
+%   \end{column}
+%  \end{columns}
+
+  \begin{columns}
+  \begin{column}{3cm}
+%     \mySmallCenterBox{}
+  \end{column}
+  \begin{column}{3cm}
+    \begin{itemize}
+     \item[] \textbf{Model}
+    \end{itemize}
+  \end{column}
+  \begin{column}{3.3cm}
+    \begin{itemize}
+     \item[] \textbf{Limit 8 / 13 TeV}
+    \end{itemize}
+  \end{column}
+  \begin{column}{2.7cm}
+    \begin{itemize}
+     \item[] \textbf{Limit improvement}
+    \end{itemize}
+  \end{column}
+ \end{columns}
+
+%  \vspace{0.1cm}
+
+  \begin{columns}
+  \begin{column}{3cm}
+    \mySmallCenterBox{Contact Interaction}
+  \end{column}
+  \begin{column}{3cm}
+    \begin{itemize}
+     \item[\XSolid] CI $qqqq$
+     \item[\XSolid] CI $qq\Plepton\Plepton$
+    \end{itemize}
+  \end{column}
+  \begin{column}{3.3cm}
+    \begin{itemize}
+     \item[] $\Lambda$: 12.0 / 17.5 TeV
+     \item[] $\Lambda$: 21.6 / 23.1 TeV
+    \end{itemize}
+  \end{column}
+  \begin{column}{2.7cm}
+    \begin{itemize}
+     \item[] 5.5 TeV
+     \item[] 1.5 TeV
+    \end{itemize}
+  \end{column}
+ \end{columns}
+ 
+ \vspace{0.2cm}
+ 
+ \begin{columns}
+  \begin{column}{3cm}
+    \mySmallCenterBox{Extra dimentions}
+  \end{column}
+  \begin{column}{3cm}
+    \begin{itemize}
+     \item[\EightStarBold] ADD QBH
+     \item[\EightStarBold] ADD BH high $\sum p_\mathrm{T}$
+     \item[\EightStarBold] ADD BH multijet
+    \end{itemize}
+  \end{column}
+  \begin{column}{3.3cm}
+    \begin{itemize}
+     \item[] $M_{th}:$ 5.82 / 8.30 TeV
+     \item[] $M_{th}:$ 5.80 / 8.20 TeV
+     \item[] $M_{th}:$ 5.80 / 9.55 TeV
+    \end{itemize}
+  \end{column}
+  \begin{column}{2.7cm}
+    \begin{itemize}
+     \item[] 2.48 TeV
+     \item[] 2.40 TeV
+     \item[] 3.75 TeV
+    \end{itemize}
+  \end{column}
+ \end{columns}
+
+ \vspace{0.2cm}
+ 
+   \begin{columns}
+  \begin{column}{3cm}
+    \mySmallCenterBox{Excited fermions}
+  \end{column}
+  \begin{column}{3cm}
+    \begin{itemize}
+     \item[\SixteenStarLight] $q^{*} \to qg$
+     \item[\SixteenStarLight] $b^{*} \to bg$
+    \end{itemize}
+  \end{column}
+  \begin{column}{3.3cm}
+    \begin{itemize}
+     \item[] $m_{q^{*}}$: 4.09 / 5.20 TeV
+     \item[] $m_{b^{*}}$: -    / 2.10 TeV
+    \end{itemize}
+  \end{column}
+  \begin{column}{2.7cm}
+    \begin{itemize}
+     \item[] 1.11 TeV
+     \item[] - TeV
+    \end{itemize}
+  \end{column}
+ \end{columns}
+ 
+ \vspace{0.2cm}
+ 
+  \begin{columns}
+  \begin{column}{3cm}
+    \mySmallCenterBox{Gauge bosons}
+  \end{column}
+  \begin{column}{3cm}
+    \begin{itemize}
+     \item[\EightAsterisk] SSM $\PZprime \to \Plepton\Plepton$
+     \item[\EightAsterisk] SSM $\PZprime \to e^{\pm}\mu^{\mp}$
+     \item[\EightAsterisk] SSM $\PWprime \to \Plepton\nu$
+     \item[\EightAsterisk] Leptophobic $\PZprime \to bb$
+    \end{itemize}
+  \end{column}
+  \begin{column}{3.3cm}
+    \begin{itemize}
+     \item[] $M_{\PZprime}:$ 2.90 / 3.40 TeV
+     \item[] $M_{\PZprime}:$ 2.50 / 3.01 TeV
+     \item[] $M_{\PWprime}:$ 3.24 / 4.07 TeV
+     \item[] $M_{\PWprime}:$ -    / 1.5 TeV
+    \end{itemize}
+  \end{column}
+  \begin{column}{2.7cm}
+    \begin{itemize}
+     \item[] 0.50 TeV
+     \vspace{0.09cm}
+     \item[] 0.51 TeV
+     \vspace{0.09cm}
+     \item[] 0.83 TeV
+     \vspace{0.09cm}
+     \item[] - TeV
+    \end{itemize}
+  \end{column}
+ \end{columns}
+ 
+ \vspace{0.2cm}
+ 
+  \begin{columns}
+  \begin{column}{3cm}
+    \mySmallCenterBox{Leptoquarks}
+  \end{column}
+  \begin{column}{3cm}
+    \begin{itemize}
+     \item[\JackStar] Scalar LQ 1$^{st}$ gen
+     \item[\JackStar] Scalar LQ 2$^{nd}$ gen
+    \end{itemize}
+  \end{column}
+  \begin{column}{3.3cm}
+    \begin{itemize}
+     \item[] $m_{LQ}$: 1.05 / 1.10 TeV
+     \item[] $m_{LQ}$: 1.00 / 1.05 TeV
+    \end{itemize}
+  \end{column}
+  \begin{column}{2.7cm}
+    \begin{itemize}
+     \item[] 0.05 TeV
+     \item[] 0.05 TeV
+    \end{itemize}
+  \end{column}
+ \end{columns}
+ 
+ 
+ \begin{tikzpicture}[overlay]
+
+    %% HELPER draw advanced helping grid with axises:
+%     \draw (0,0) to[grid with coordinates] (13,10);
+
+    \draw[red,thick] (6.0,5.0) rectangle (10.75,7.6);
+    \draw[yellow,thick] (6.0,1.3) rectangle (10.75,4.7);
+    \draw[gray,thick] (6.0,0.05) rectangle (10.75,1.0);
+    
+  \end{tikzpicture}
+ 
+ 
+    
+
+
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Conclusions}
+ \begin{itemize}
+  \item[\Checkmark] Current results on searches for new physics in high-mass fermionic final states and 
+	jets have been presented.
+  \vspace{0.3cm}
+  \item[\Checkmark] The sensitivity of all searches already exceeds Run 1 results and 
+	new mass regions have been explored. 
+  \vspace{0.3cm}
+  \item[\Checkmark] No significant excesses are observed but stronger exclusion limits are set for various models
+beyond the Standard Model.
+  \vspace{0.3cm}
+  \item The expected ten times higher luminosity in 2016 will allow a 
+	deeper exploration of the 13 TeV regime.
+  \vspace{0.3cm}
+ \end{itemize}
+
+\end{frame}
+%*****************************************************************************
+\backupbegin
+%*****************************************************************************
+\begin{frame}{\large BACKUP}
+ 
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Multijet}
+ \begin{itemize}
+  \item At least three jets with $p_\mathrm{T} >$ 50 GeV and $|\eta| <$ 2.8
+  \item Search variable: Scalar sum of jet transverse momenta ($H_\mathrm{T}$) $>$ 1 TeV
+  \item SM background predicted by data-driven fit-based technique based on 3 regions:
+  \begin{itemize}
+   \item Control region (CR) - fit background model to data (10 functions tested)
+   \item Validation region (VR) - cross-check that the extrapolation procedure is working properly
+   \item Signal region (SR) - use fit to estimate amount of the SM background
+  \end{itemize}
+  \item In order to be sure that CR and VR are not contaminated by possible signal - 
+	use bootstrap approach:
+  \begin{itemize}
+   \item examine data sets whose size increases by approximately a factor of ten at each step, 
+   starting with a sample whose sensitivity is slightly beyond the Run 1 limit.
+   \item if a search in one step sees no new physics, the possible contributions of signal to 
+   the control and validation regions of the next step are small.
+  \end{itemize}
+ \end{itemize}
+ 
+ \begin{columns}
+  \begin{column}{3cm}
+   \myCenterBox{Step 1: 6.5 pb$^{-1}$}
+   \includegraphics[width=3cm]{multijet/fig_05.png}\\
+  \end{column}
+  \begin{column}{3cm}
+  \myCenterBox{Step 2: 74 pb$^{-1}$}
+   \includegraphics[width=3cm]{multijet/fig_06.png}\\
+  \end{column}
+  \begin{column}{3cm}
+  \myCenterBox{Step 3: 0.44 fb$^{-1}$}
+   \includegraphics[width=3cm]{multijet/fig_07.png}\\
+  \end{column}
+  \begin{column}{3cm}
+  \myCenterBox{Step 4: 3.0 fb$^{-1}$}
+   \includegraphics[width=3cm]{multijet/fig_08.png}\\
+  \end{column}
+ \end{columns}
+
+\end{frame}
+%*****************************************************************************
+% %*****************************************************************************
+% \begin{frame}{\large Multijet: String Ball Model}
+%   \begin{columns}
+%   \begin{column}{6cm}
+%       \begin{itemize}
+%       \item Limits for String balls with 6 extra dimensions are set as a function:
+%       \begin{itemize}
+%       \item string scale ($M_S$)
+%       \item mass threshold ($M_{th}$)
+%       \item string coupling ($g_S$)
+%       \end{itemize}
+%       \item A string ball can exit in 3 different phases depending on $M_S$, $g_S$, and its mass $M_{th}$.  
+% %       You are suppose to see 3 different curves on this plot and 2 different transitions points.  
+%       \begin{itemize}
+%        \item The high $M_{th}$ is when the string ball is a black hole, 
+%        \item the middle regions is the stringy state, 
+%        \item and the low $M_{th}$ region is the unitary state.
+%       \end{itemize}
+%    \end{itemize}
+%   \end{column}
+%   \begin{column}{6cm}
+%    \myCenterBox{String ball model}
+%    \includegraphics[width=6cm]{multijet/fig_11b.png}\\
+%    \end{column}
+%  \end{columns}
+% 
+%  \vspace{0.5cm}
+%  \myCenterBox[yellow]{\href{http://arxiv.org/abs/1512.02586}{arXiv:1512.02586}}
+%  
+% \end{frame}
+% %*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Lepton-jet resonances}
+
+  \begin{columns}
+   \begin{column}{7.5cm}
+    \begin{itemize}
+      \item Tested model: pair production of first- and second-generation scalar leptoquarks (mBRW model).
+      \vspace{0.15cm}
+      \item Excluded LQ’s mass ranges (BR=1):
+      \begin{itemize}
+       \item $m_{LQ1} < 1100$ GeV
+       \item $m_{LQ2} < 1050$ GeV
+      \end{itemize}
+      \vspace{0.15cm}
+      \item Observed limit is \textbf{stronger by 50 GeV} comparing with ATLAS Run 1 result. 
+    \end{itemize}
+    \myCenterBox[yellow]{\href{http://arxiv.org/abs/1605.06035}{arXiv:1605.06035}}
+    \vspace{0.05cm}
+    {\centering
+      \includegraphics[width=7.5cm]{leptoquarck/feynman.png}\\
+      \includegraphics[width=3.5cm]{leptoquarck/LQ_decay.png}\\
+    }
+
+   \end{column}
+   \begin{column}{4.5cm}
+    \myVerySmallCenterBox{Limits for different assumptions on leptoquark BR}
+    \includegraphics[width=4.15cm]{leptoquarck/Limit_eejj_beta.pdf}\\
+    \includegraphics[width=4.15cm]{leptoquarck/Limit_mumujj_beta.pdf}\\
+   \end{column}
+  \end{columns}
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Lepton + 2 Jets/Leptons}
+
+\myCenterBox{Motivation of analysis selection wrt QBH models}
+
+\begin{itemize}
+ \item Gravitational interaction couples to the energy-momentum tensor rather than gauge
+quantum numbers, final states are expected to be populated "democratically".
+ \item It is expected that a significant fraction of final states will contain leptons.
+ \item Lepton + 2 Jets/Leptons selection enhance the signal strength compared
+to the dominant background at the LHC which arises from quark and gluon scattering processes forming
+hadronic final states.
+\end{itemize}
+
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Lepton + 2 Jets/Leptons}
+ \myCenterBox{Normalization Control Regions}
+\begin{columns}
+ \begin{column}{4cm}
+  \includegraphics[width=4cm]{leptonsPlusJets/fig_01a.png}\\
+ \end{column}
+ \begin{column}{4cm}
+  \includegraphics[width=4cm]{leptonsPlusJets/fig_02a.png}\\
+ \end{column}
+ \begin{column}{4cm}
+  \includegraphics[width=4cm]{leptonsPlusJets/fig_03a.png}\\
+ \end{column}
+\end{columns}
+\begin{itemize}
+ \item The backgrounds predictions were adjusted by the likelihood fit.
+ \item Scale factors:
+ \begin{itemize}
+  \item $W+$jets: 0.81 $\pm$ 0.07 
+  \item $Z+$jets: 1.01 $\pm$ 0.08
+  \item $t\overline{t}$: 0.95 $\pm$ 0.08
+ \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+% \bgroup
+% \setbeamercolor{background canvas}{bg=white}
+\begin{frame}{}
+
+    \begin{tikzpicture}[overlay]
+
+    %% HELPER draw advanced helping grid with axises:
+%     \draw (0,-5) to[grid with coordinates] (11,3);
+
+    \node[right] (textNode) at (3,0) {
+      { \large \bf Theoretical BSM models}
+    };
+    
+    \node[right] (n11) at (5,-0.7) {
+        \EightStarTaper $\PWprime$ and $\PZprime$ (SSM, E6 GUT)
+    };
+    
+    \node[right] (n21) at (5,-1.2) {
+        \EightStarTaper Higher-dimensional QBH
+    };
+    
+    \node[right] (n31) at (5,-1.7) {
+        \EightStarTaper String balls
+    };
+    
+    \node[right] (n41) at (5,-2.2) {
+        \EightStarTaper Contact Interaction
+    };
+    
+    \node[right] (n51) at (5,-2.7) {
+        \EightStarTaper Excited quarks
+    };
+    
+    \node[right] (n61) at (5,-3.2) {
+        \EightStarTaper Leptoquarks
+    };
+    
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-0.5cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n11.west);
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-0.75cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n21.west);
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-1.0cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n31.west);
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-1.25cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n41.west);
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-1.5cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n51.west);
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-1.75cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n61.west);
+
+    \end{tikzpicture}
+
+\end{frame}
+% \egroup
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large $\PWprime$ and $\PZprime$ models}
+\begin{itemize}
+ \item \textbf{Sequential Standard Model (SSM)}
+  \begin{itemize}
+    \item $\PWprime$ and $\PZprime$ have the same couplings to fermions as the Standard Model (SM) W and Z bosons.
+  \end{itemize}
+ \item \textbf{$E_6$ Grand Unified Theory}
+  \begin{itemize}
+    \item $E_6 \rightarrow SU(5) \times U(1)_{\chi} \times U(1)_{\psi}$
+    \item $\PZprime(\theta_{E_6}) = Z'_{\psi}\cos\theta_{E_6} + Z'_{\chi}\sin\theta_{E_6}$
+    \item 6 commonly motivated states of $\PZprime$ namely:
+	  $Z'_{\psi}, Z'_{N}, Z'_{\eta}, Z'_{I}, Z'_{S}, Z'_{\chi}$
+  \end{itemize}
+ \item \textbf{Leptophobic $\PZprime$}
+ \begin{itemize}
+  \item $\PZprime$ boson does not couple to the leptons.
+  \item Derived from different scenarios of the E6 GUT.
+ \end{itemize}
+ 
+ 
+\end{itemize}
+  
+\begin{columns}
+ \begin{column}{6cm}
+  \includegraphics[width=6cm]{bTaggedDijet/Zprime.png}\\
+ \end{column}
+ \begin{column}{6cm}
+  \includegraphics[width=5cm]{bTaggedDijet/Zprime_lep.png}\\
+ \end{column}
+\end{columns}
+
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Higher-dimensional QBH}
+\begin{columns}
+ \begin{column}{6cm}
+  \begin{itemize}
+   \item ADD model - proposed by Arkani-Hamed, Dimopoulos and Dvali.
+   \item RS model - proposed by Randall and Sundrum.
+  \end{itemize}
+  \begin{itemize}
+   \item fundamental Planck scale ($M_D$) - energy scale at which quantum effects of gravity become strong.
+   \item mass threshold ($M_{th}$) - threshold where black holes start to form.
+  \end{itemize}
+  \begin{itemize}
+   \item Ideally, black holes would decay isotropically to many energetic particles, in keeping with the prediction of thermal Hawking radiation.
+   \item Expected black hole signature is low multiplicity final states {\small (ADD n = 6)}:
+   \begin{equation}
+    \langle N \rangle \sim \left( \dfrac{M_{BH}}{M_{D}} \right)^{8/7}
+   \end{equation}
+
+  \end{itemize}
+
+
+ \end{column}
+ \begin{column}{6cm}
+ 
+ {\centering
+  \textbf{QBH signal on top of SM QCD backgound}
+ }
+ \vspace{0.4cm}\\
+ 
+  \includegraphics[width=6cm]{schematicBlackHoleDistribution.png}\\
+  
+  \begin{tikzpicture}[overlay]
+
+    %% HELPER draw advanced helping grid with axises:
+%     \draw (0,0) to[grid with coordinates] (7,4);
+      
+    \node[right] (textNode) at (2.2,3.5) {
+      \myVerySmallCenterBox{ $d\sigma/dM_{jj} (pb/GeV)$ vs. $M_{jj} (TeV)$ }
+    };
+    \node[right] (textNode) at (1,1) {
+      {\tiny \href{http://arxiv.org/abs/0708.3017}{arXiv:0708.3017} }
+    };
+        
+  
+  
+    \end{tikzpicture}
+  
+ \end{column}
+\end{columns}
+
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large String balls}
+
+In string theory, black holes have a minimum mass below which they
+transition into highly excited long and jagged strings  --- ``string
+balls''.
+\vspace{0.2cm}
+
+In summary, the elementary (parton) cross section for string ball/BH
+production is
+\begin{eqnarray}
+\sigma\sim\left\{
+\begin{array}{ll}
+\displaystyle 
+{g_s^2 M_{SB}^2\over M_s^4} &\qquad M_s\ll M_{SB}\leq M_s/ g_s\,,\\
+\displaystyle 
+{1\over M_s^{2}}&\qquad M_s/ g_s< M_{SB}\leq M_s/ g_s^2\,,\\
+\displaystyle
+{1\over M_P^{2}}\left({M_{BH}\over M_P}\right)^{2\over n+1} 
+&\qquad M_s/ g_s^2<M_{BH}\,.
+\end{array}
+\right.
+\end{eqnarray}
+$M_{SB}$ ($M_{BH}$) is the mass of the string ball (black hole), and we
+have used $\alpha'=M_s^{-2}$.
+
+\textbf{
+The first two mass ranges lead to string balls, the third to black
+holes. }
+
+\vspace{0.1cm}
+{\centering
+ \includegraphics[width=5.3cm]{multijet/fig_11b.png}\\
+}
+
+\begin{tikzpicture}[overlay]
+
+    %% HELPER draw advanced helping grid with axises:
+%     \draw (0,0) to[grid with coordinates] (12,9);
+      
+    \node[right] (textNode) at (8.5,7.5) {
+      \myVerySmallCenterBox{\href{http://arxiv.org/abs/hep-ph/0108060}{arXiv:hep-ph/0108060}}
+    };
+
+    \end{tikzpicture}
+
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Contact Interaction}
+  
+  \myCenterBox{\textbf{Non-Resonant} Contact Interaction (CI)}
+  \begin{itemize}
+    \item Quark and Lepton Compositeness:
+    \begin{itemize}
+      \item Characteristic energy scale $\varLambda$ corresponds to binding energy between constituents
+      \item $\eta_{ij}$ gives chiral structure of the interaction
+    \end{itemize}
+    \item Excpect non-resonant deviations in the di-lepton mass spectrum.
+  \end{itemize}
+
+{\centering
+  \includegraphics[width=7cm]{dilepton/CI_feynman.png}\\
+}
+
+CI Lagrangian is used to describe a new interaction or compositeness in the process $q\overline{q} \to \ell^+\ell^-$:
+
+\begin{eqnarray}\label{lagrangian}
+\mathcal L & = & \frac{g^2}{\Lambda^2}\;[ \eta_{\rm LL} \, (\overline q_{\rm L}\gamma_{\mu} q_{\rm L})\,(\overline\ell_{\rm L}\gamma^{\mu}\ell_{\rm L})
++\eta_{\rm RR} (\overline q_{\rm R}\gamma_{\mu} q_{\rm R}) \,(\overline\ell_{\rm R}\gamma^{\mu}\ell_{\rm R}) \\ \nonumber
+&  & ~~~~~~~~ +\eta_{\rm LR} (\overline q_{\rm L}\gamma_{\mu} q_{\rm L}) \,(\overline\ell_{\rm R}\gamma^{\mu}\ell_{\rm R})
++\eta_{\rm RL} (\overline q_{\rm R}\gamma_{\mu} q_{\rm R}) \,(\overline\ell_{\rm L}\gamma^{\mu}\ell_{\rm L}) ] \:
+\end{eqnarray}
+
+
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Excited quarks}
+  
+  \begin{itemize}
+   \item Excited quarks are a consequence of quark compositeness models that were proposed to explain the generational structure and mass hierarchy of quarks.
+
+  \end{itemize}
+
+  {\centering
+  \includegraphics[width=6cm]{bTaggedDijet/excitedQuark.png}\\
+  }
+
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+\begin{frame}{\large Leptoquarks}
+  
+  \begin{itemize}
+   \item LQs possess non-zero baryon and lepton numbers; \\their existence would provide a connection between quarks and leptons.
+   \item LQs carry a colour-triplet charge and a fractional electric charge.
+   \item The signal benchmark model in the analysis is the minimal Buchm\"uller--R\"uckl--Wyler model (mBRW).
+   \begin{itemize}
+    \item Lepton number and baryon number are separately conserved to prevent fast proton decay.
+    \item The LQ couplings are also considered to be purely chiral.
+    \item LQs belong to three generations (first, second and third) which interact only with lepton--quark pairs within the same generation.
+    \item Lepton-flavour violation is suppressed.
+   \end{itemize}
+  \end{itemize}
+
+  \begin{columns}
+   \begin{column}{4cm}
+    \includegraphics[width=4cm]{leptoquarck/fig_02a.png}\\
+    \includegraphics[width=4cm]{leptoquarck/fig_02b.png}\\
+   \end{column}
+   \begin{column}{4cm}
+    \includegraphics[width=4cm]{leptoquarck/fig_02c.png}\\
+    \includegraphics[width=4cm]{leptoquarck/fig_02d.png}\\
+   \end{column}
+   \begin{column}{4cm}
+    \includegraphics[width=4cm]{leptoquarck/LQ_decay.png}\\
+   \end{column}
+  \end{columns}
+
+\end{frame}
+%*****************************************************************************
+%*****************************************************************************
+% \bgroup
+% \setbeamercolor{background canvas}{bg=white}
+\begin{frame}{}
+
+    \begin{tikzpicture}[overlay]
+
+    %% HELPER draw advanced helping grid with axises:
+%     \draw (0,-5) to[grid with coordinates] (11,3);
+
+    \node[right] (textNode) at (3,0) {
+      { \large \bf Other materials}
+    };
+    
+    \node[right] (n11) at (5,-0.7) {
+        \EightStarTaper Summary plot of Exotics searches.
+    };
+    
+    \node[right] (n21) at (5,-1.2) {
+        \EightStarTaper QCD background estimation
+    };
+%     
+%     \node[right] (n31) at (5,-1.7) {
+%         \EightStarTaper Contact Interaction
+%     };
+%     
+%     \node[right] (n41) at (5,-2.2) {
+%         \EightStarTaper Excited quarks
+%     };
+%     
+%     \node[right] (n51) at (5,-2.7) {
+%         \EightStarTaper Leptoquarks
+%     };
+    
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-0.5cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n11.west);
+    \tikz[overlay]\draw[thick,black,->] ([xshift=-0.75cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n21.west);
+%     \tikz[overlay]\draw[thick,black,->] ([xshift=-1.0cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n31.west);
+%     \tikz[overlay]\draw[thick,black,->] ([xshift=-1.25cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n41.west);
+%     \tikz[overlay]\draw[thick,black,->] ([xshift=-1.5cm]textNode.south) to [out=270, in=180] ([xshift=-0.1pt]n51.west);
+
+    \end{tikzpicture}
+
+\end{frame}
+% \egroup
+%*****************************************************************************
+%*****************************************************************************
+\bgroup
+\setbeamercolor{background canvas}{bg=white}
+\begin{frame}{}
+
+\begin{tikzpicture}[overlay]
+
+    %% HELPER draw advanced helping grid with axises:
+    \draw (0,-5) to[grid with coordinates] (11,3);
+
+    \node[right] (textNode) at (-2.5,-1) {
+      \includegraphics[width=14cm]{ATLAS_Exotics_Summary.pdf}
+    };
+  
+    \end{tikzpicture}
+
+   
+
+\end{frame}
+\egroup
+%*****************************************************************************
+%*****************************************************************************
+ { % all template changes are local to this group.
+    \setbeamertemplate{navigation symbols}{}
+    \begin{frame}{QCD background estimation}
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[at=(current page.center)] {
+                \includegraphics[width=0.97\paperwidth]{/home/oviazlo/PhD_study/myReports/pictures/Wprime/Oct14_exotics/Yosuke_MatrixMethod.pdf}
+            };
+%             \node[at=(2.5,3.5)] {
+% 	      TEST
+%             };
+%             \node[anchor=south] at (current page.south) {\vspace{-4cm} I am south-bound...};
+%             \draw[thick] (current page.south west) rectangle (current page.north east);
+        \end{tikzpicture}
+     \end{frame}
+}
+%*****************************************************************************
+%***************************************************************************** 
+ \begin{frame}{QCD background estimation}
+ 
+      
+  Number of fake leptons coming from QCD background can be expressed as: \\
+  \vspace{0.2cm}
+  \hspace{0.6cm}
+  $\epsilon_F N_F=\frac{\epsilon_{F}}{\epsilon_{R}-\epsilon_{F}}\left(\epsilon_{R}(N_{L}+N_{T})-N_{T}\right)$
+
+  
+  \vspace{0.5cm}
+  Tight selection = Signal selection \\
+  ``Loose'' selection:
+  \begin{itemize}
+   \item Electron: Signal selection wo isolation cut and looser electron ID
+   \item Muon: Signal selection wo isolation cut
+  \end{itemize}
+  
+  \vspace{0.5cm}
+  Fake Efficiencies are calculated by using jet enriched control region:
+  \begin{itemize}
+   \item No Z Candidate ($|m_{ll}-m_{Z}| > 20$ GeV)
+   \item Inverted $E_{T}^{miss}$ cut
+   \item At least one jet with $p_{T} > 40$ GeV
+  \end{itemize}
+
+
+ \end{frame}
+%*****************************************************************************
+\backupend
+\end{document}
+
